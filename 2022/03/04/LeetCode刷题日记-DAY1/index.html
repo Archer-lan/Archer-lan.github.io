@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#6200ee"><meta name="author" content="Lanlan"><meta name="copyright" content="Lanlan"><meta name="generator" content="Hexo 6.0.0"><meta name="theme" content="hexo-theme-yun"><title>LeetCode刷题日记-DAY1 | Blog of Lanlan</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/png" href="/bitbug_favicon.ico"><link rel="mask-icon" href="/bitbug_favicon.ico" color="#6200ee"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"archer-lan.github.io","root":"/","title":"蓝蓝的小站","version":"1.7.0","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="876 链表的中间结点链表中的存储个数，为奇数或者偶数时，其中间结点不变。 &#x2F;**  * Definition for singly-linked list.  * struct ListNode &amp;#123;  *     int val;  *     ListNode *next;  *     ListNode() : val(0), next(nullptr) &amp;#123;&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode刷题日记-DAY1">
+<meta property="og:url" content="https://archer-lan.github.io/2022/03/04/LeetCode%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0-DAY1/index.html">
+<meta property="og:site_name" content="Blog of Lanlan">
+<meta property="og:description" content="876 链表的中间结点链表中的存储个数，为奇数或者偶数时，其中间结点不变。 &#x2F;**  * Definition for singly-linked list.  * struct ListNode &amp;#123;  *     int val;  *     ListNode *next;  *     ListNode() : val(0), next(nullptr) &amp;#123;&amp;#">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://archer-lan.github.io/%5Cimages%5Cimage-20220208095828443.png">
+<meta property="article:published_time" content="2022-03-04T09:48:27.868Z">
+<meta property="article:modified_time" content="2022-03-04T10:30:47.654Z">
+<meta property="article:author" content="Lanlan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://archer-lan.github.io/%5Cimages%5Cimage-20220208095828443.png"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Lanlan"><img width="96" loading="lazy" src="/images/avater.png" alt="Lanlan"><span class="site-author-status" title="天天开心">😭</span></a><div class="site-author-name"><a href="/about/">Lanlan</a></div><span class="site-name">Blog of Lanlan</span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">17</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">3</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=781251187&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Archer-lan" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:lan78125@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=280461298" title="网易云音乐" target="_blank" style="color:#C10D0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/20745958?spm_id_from=333.1007.0.0" title="哔哩哔哩动画" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#876-%E9%93%BE%E8%A1%A8%E7%9A%84%E4%B8%AD%E9%97%B4%E7%BB%93%E7%82%B9"><span class="toc-number">1.</span> <span class="toc-text">876 链表的中间结点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-N-%E4%B8%AA%E7%BB%93%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">19 删除链表的倒数第 N 个结点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#36-%E6%9C%89%E6%95%88%E7%9A%84%E6%95%B0%E7%8B%AC"><span class="toc-number">3.</span> <span class="toc-text">36 有效的数独</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#73-%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6"><span class="toc-number">4.</span> <span class="toc-text">73  矩阵置零</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://Archer-lan.github.io/2022/03/04/LeetCode%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0-DAY1/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Lanlan"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Blog of Lanlan"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">LeetCode刷题日记-DAY1</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-03-04 17:48:27" itemprop="dateCreated datePublished" datetime="2022-03-04T17:48:27+08:00">2022-03-04</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E6%AF%8F%E6%97%A5%E6%88%90%E9%95%BF%EF%BC%81/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">每日成长！</span></a></span></span></div><div class="post-author"><div class="author-avatar"><img src="https://www.gravatar.com/avatar/8d43d7964b8cab986fa862a4518075a2?s=20&amp;d=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2FYunYouJun%2Fcdn%2Fimg%2Favatar%2Fnone.jpg"></div><span class="author-name">Lanlan</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#6200ee;"><h2 id="876-链表的中间结点"><a href="#876-链表的中间结点" class="headerlink" title="876 链表的中间结点"></a>876 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/middle-of-the-linked-list/">链表的中间结点</a></h2><p>链表中的存储个数，为奇数或者偶数时，其中间结点不变。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">&#x2F;**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ *&#x2F;
+class Solution &#123;
+public:
+    ListNode* middleNode(ListNode* head) &#123;
+        ListNode *s &#x3D; head;
+        int count&#x3D;0;
+        while(s)&#123;
+            s&#x3D;s-&gt;next;
+            count++;
+        &#125;
+        for(int i&#x3D;0;i&lt;(count&#x2F;2);i++)&#123;
+            head&#x3D;head-&gt;next;
+        &#125;
+        return head;
+    &#125;
+&#125;;</code></pre>
+
+
+
+<h2 id="19-删除链表的倒数第-N-个结点"><a href="#19-删除链表的倒数第-N-个结点" class="headerlink" title="19 删除链表的倒数第 N 个结点"></a>19 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">删除链表的倒数第 N 个结点</a></h2><p>一种容易想到的方法是，我们首先从头节点开始对链表进行一次遍历，得到链表的长度 LL。随后我们再从头节点开始对链表进行一次遍历，当遍历到第 L-n+1 L−n+1 个节点时，它就是我们需要删除的节点。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int getLength(ListNode* head) &#123;
+        int length &#x3D; 0;
+        while (head) &#123;
+            ++length;
+            head &#x3D; head-&gt;next;
+        &#125;
+        return length;
+    &#125;
+    ListNode* removeNthFromEnd(ListNode* head, int n) &#123;
+    ListNode* dummy &#x3D; new ListNode(0, head);
+    int length &#x3D; getLength(head);
+    ListNode* cur &#x3D; dummy;
+    for (int i &#x3D; 1; i &lt; length - n + 1; ++i) &#123;
+        cur &#x3D; cur-&gt;next;
+    &#125;
+    cur-&gt;next &#x3D; cur-&gt;next-&gt;next;
+    ListNode* ans &#x3D; dummy-&gt;next;
+    delete dummy;
+    return ans;
+&#125;</code></pre>
+
+<h2 id="36-有效的数独"><a href="#36-有效的数独" class="headerlink" title="36 有效的数独"></a>36 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-sudoku/">有效的数独</a></h2><p>有效的数独满足以下三个条件：</p>
+<p>同一个数字在每一行只能出现一次；</p>
+<p>同一个数字在每一列只能出现一次；</p>
+<p>同一个数字在每一个小九宫格只能出现一次。</p>
+<p>可以使用哈希表记录每一行、每一列和每一个小九宫格中，每个数字出现的次数。只需要遍历数独一次，在遍历的过程中更新哈希表中的计数，并判断是否满足有效的数独的条件即可。</p>
+<p><img src="/%5Cimages%5Cimage-20220208095828443.png" alt="image-20220208095828443" loading="lazy"></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    bool isValidSudoku(vector&lt;vector&lt;char&gt;&gt;&amp; board) &#123;
+        int rows[9][9];
+        int columns[9][9];
+        int subboxes[3][3][9];
+        
+        memset(rows,0,sizeof(rows));
+        memset(columns,0,sizeof(columns));
+        memset(subboxes,0,sizeof(subboxes));
+        for (int i &#x3D; 0; i &lt; 9; i++) &#123;
+            for (int j &#x3D; 0; j &lt; 9; j++) &#123;
+                char c &#x3D; board[i][j];
+                if (c !&#x3D; &#39;.&#39;) &#123;
+                    int index &#x3D; c - &#39;0&#39; - 1;
+                    rows[i][index]++;
+                    columns[j][index]++;
+                    subboxes[i &#x2F; 3][j &#x2F; 3][index]++;
+                    if (rows[i][index] &gt; 1 || columns[j][index] &gt; 1 || subboxes[i &#x2F; 3][j &#x2F; 3][index] &gt; 1) &#123;
+                        return false;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        return true;
+    &#125;
+&#125;;
+
+</code></pre>
+
+<h2 id="73-矩阵置零"><a href="#73-矩阵置零" class="headerlink" title="73  矩阵置零"></a>73 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/set-matrix-zeroes/"> 矩阵置零</a></h2><pre class="language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    void setZeroes(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) &#123;
+        int rows[200];
+        int colums[200];
+        int k&#x3D;0;
+        int m &#x3D; matrix.size();
+        int n &#x3D; matrix[0].size();
+        for(int i&#x3D;0;i&lt;m;i++)&#123;
+            for(int j &#x3D;0;j&lt;n;j++)&#123;
+                if(matrix[i][j]&#x3D;&#x3D;0)&#123;
+                    rows[k]&#x3D;i;
+                    colums[k++]&#x3D;j;
+                &#125;
+            &#125;
+        &#125;
+        for(int i&#x3D;0;i&lt;k;i++)&#123;
+            for(int j&#x3D;0;j&lt;m;j++)&#123;
+                matrix[j][colums[i]]&#x3D;0;
+            &#125;
+            for(int j&#x3D;0;j&lt;n;j++)&#123;
+                matrix[rows[i]][j]&#x3D;0;
+            &#125;
+        &#125;
+    &#125;
+&#125;;</code></pre>
+
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>Lanlan</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://archer-lan.github.io/2022/03/04/LeetCode%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0-DAY1/" title="LeetCode刷题日记-DAY1">https://archer-lan.github.io/2022/03/04/LeetCode%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0-DAY1/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2022/03/04/Node%20%E5%AD%A6%E4%B9%A0-05/" rel="prev" title="Node.js 学习-05"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">Node.js 学习-05</span></a></div><div class="post-nav-item"></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>要不要和我说些什么？</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备xxxxxxxx号</a></div><div class="copyright"><span>&copy; 2019 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Lanlan</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.0.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.7.0</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2019-02-14T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#6200ee" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4","5-12"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>

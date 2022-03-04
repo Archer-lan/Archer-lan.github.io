@@ -1,0 +1,305 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#6200ee"><meta name="author" content="Lanlan"><meta name="copyright" content="Lanlan"><meta name="generator" content="Hexo 6.0.0"><meta name="theme" content="hexo-theme-yun"><title>Node.js 学习 项目开发实践 | Blog of Lanlan</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/png" href="/bitbug_favicon.ico"><link rel="mask-icon" href="/bitbug_favicon.ico" color="#6200ee"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"archer-lan.github.io","root":"/","title":"蓝蓝的小站","version":"1.7.0","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="在mySQL中创建users表  安装配置mysql模块2.18.1版本  注册实现步骤 1、检测表单数据是否合法 2、检测用户名是否被占用 3、对密码进行加密处理 4、插入新用户 检测表单数据是否合法1、判断用户名和密码是否为空 &#x2F;&#x2F;获取客户端提交到服务器的用户信息 const userinfo &#x3D; req.body &#x2F;&#x2F;对表单中的数据，进行合法性的检验 if(!userinfo.usernam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js 学习 项目开发实践">
+<meta property="og:url" content="https://archer-lan.github.io/2022/03/04/Node.js%20%E5%AD%A6%E4%B9%A0-%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="Blog of Lanlan">
+<meta property="og:description" content="在mySQL中创建users表  安装配置mysql模块2.18.1版本  注册实现步骤 1、检测表单数据是否合法 2、检测用户名是否被占用 3、对密码进行加密处理 4、插入新用户 检测表单数据是否合法1、判断用户名和密码是否为空 &#x2F;&#x2F;获取客户端提交到服务器的用户信息 const userinfo &#x3D; req.body &#x2F;&#x2F;对表单中的数据，进行合法性的检验 if(!userinfo.usernam">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://archer-lan.github.io/%5Cimages%5Cimage-20220123140254013.png">
+<meta property="og:image" content="https://archer-lan.github.io/%5Cimages%5Cimage-20220123141124018.png">
+<meta property="og:image" content="https://archer-lan.github.io/%5Cimages%5Cimage-20220123205253522.png">
+<meta property="article:published_time" content="2022-03-04T09:48:28.050Z">
+<meta property="article:modified_time" content="2022-03-04T10:23:54.326Z">
+<meta property="article:author" content="Lanlan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://archer-lan.github.io/%5Cimages%5Cimage-20220123140254013.png"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Lanlan"><img width="96" loading="lazy" src="/images/avater.png" alt="Lanlan"><span class="site-author-status" title="天天开心">😭</span></a><div class="site-author-name"><a href="/about/">Lanlan</a></div><span class="site-name">Blog of Lanlan</span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">17</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">3</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=781251187&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Archer-lan" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:lan78125@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=280461298" title="网易云音乐" target="_blank" style="color:#C10D0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/20745958?spm_id_from=333.1007.0.0" title="哔哩哔哩动画" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C"><span class="toc-number">1.</span> <span class="toc-text">注册</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%98%AF%E5%90%A6%E5%90%88%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">检测表单数据是否合法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E7%94%A8%E6%88%B7%E5%90%8D%E6%98%AF%E5%90%A6%E8%A2%AB%E5%8D%A0%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">检测用户名是否被占用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%AF%86%E7%A0%81%E8%BF%9B%E8%A1%8C%E5%8A%A0%E5%AF%86"><span class="toc-number">1.3.</span> <span class="toc-text">对密码进行加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%96%B0%E7%94%A8%E6%88%B7"><span class="toc-number">1.4.</span> <span class="toc-text">插入新用户</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">优化代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-number">3.</span> <span class="toc-text">登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E7%99%BB%E5%BD%95%E8%A1%A8%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E6%98%AF%E5%90%A6%E5%90%88%E6%B3%95"><span class="toc-number">3.1.</span> <span class="toc-text">检测登录表单的数据是否合法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E7%94%A8%E6%88%B7%E5%90%8D%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%88%B7%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-number">3.2.</span> <span class="toc-text">根据用户名查询用户的数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90JWT%E7%9A%84Token%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">4.</span> <span class="toc-text">生成JWT的Token字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90Token-%E7%9A%84%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">配置解析Token 的中间件</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://Archer-lan.github.io/2022/03/04/Node.js%20%E5%AD%A6%E4%B9%A0-%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Lanlan"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Blog of Lanlan"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Node.js 学习 项目开发实践</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-03-04 17:48:28" itemprop="dateCreated datePublished" datetime="2022-03-04T17:48:28+08:00">2022-03-04</time></div><div class="post-classify"></div><div class="post-author"><div class="author-avatar"><img src="https://www.gravatar.com/avatar/8d43d7964b8cab986fa862a4518075a2?s=20&amp;d=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2FYunYouJun%2Fcdn%2Fimg%2Favatar%2Fnone.jpg"></div><span class="author-name">Lanlan</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#6200ee;"><p>在mySQL中创建users表</p>
+<p><img src="/%5Cimages%5Cimage-20220123140254013.png" alt="image-20220123140254013" loading="lazy"></p>
+<p>安装配置mysql模块2.18.1版本</p>
+<p><img src="/%5Cimages%5Cimage-20220123141124018.png" alt="image-20220123141124018" loading="lazy"></p>
+<h2 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h2><p>实现步骤</p>
+<p>1、检测表单数据是否合法</p>
+<p>2、检测用户名是否被占用</p>
+<p>3、对密码进行加密处理</p>
+<p>4、插入新用户</p>
+<h3 id="检测表单数据是否合法"><a href="#检测表单数据是否合法" class="headerlink" title="检测表单数据是否合法"></a>检测表单数据是否合法</h3><p>1、判断用户名和密码是否为空</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//获取客户端提交到服务器的用户信息</span>
+<span class="token keyword">const</span> userinfo <span class="token operator">=</span> req<span class="token punctuation">.</span>body
+<span class="token comment">//对表单中的数据，进行合法性的检验</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>userinfo<span class="token punctuation">.</span>username <span class="token operator">||</span> <span class="token operator">!</span>userinfo<span class="token punctuation">.</span>password<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">status</span><span class="token operator">:</span><span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">'用户名或密码不合法'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="检测用户名是否被占用"><a href="#检测用户名是否被占用" class="headerlink" title="检测用户名是否被占用"></a>检测用户名是否被占用</h3><p>1、导入数据库模块</p>
+<p>2、定义sql语句</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//定义SQL语句查询用户名是否被占用</span>
+<span class="token keyword">const</span> sqlStr <span class="token operator">=</span> <span class="token string">'select * from users where username=?'</span>
+<span class="token comment">//select语句results返回的是数组,因此判断时只需要看数组长度是否大于0</span>
+db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>sqlStr<span class="token punctuation">,</span>userinfo<span class="token punctuation">.</span>username<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span>results</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">status</span><span class="token operator">:</span><span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">message</span><span class="token operator">:</span>err<span class="token punctuation">.</span>message<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">//判断用户名是否被占用</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>results<span class="token punctuation">.</span>length <span class="token operator">></span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">status</span><span class="token operator">:</span><span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">'用户名被占用，请更换其他用户名'</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">//TODO:用户名可以使用</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
+
+<h3 id="对密码进行加密"><a href="#对密码进行加密" class="headerlink" title="对密码进行加密"></a>对密码进行加密</h3><p>使用<em>bcryptjs</em>包进行加密，优点：</p>
+<ul>
+<li>加密之后的密码，无法被逆向破解</li>
+<li>同一明文密码多次加密，得到的加密结果各不相同</li>
+</ul>
+<p>安装 bcryptjs包，2.4.3版本</p>
+<p>调用 bcrypt.hashSync(明文密码，随机的长度)方法，对密码进行加密处理</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//调用bcrypt.hashSync 对密码进行加密</span>
+userinfo<span class="token punctuation">.</span>password<span class="token operator">=</span>bcrypt<span class="token punctuation">.</span><span class="token function">hashSync</span><span class="token punctuation">(</span>userinfo<span class="token punctuation">.</span>password<span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span></code></pre>
+
+<h3 id="插入新用户"><a href="#插入新用户" class="headerlink" title="插入新用户"></a>插入新用户</h3><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//定义插入新用户的sql语句</span>
+<span class="token keyword">const</span> sql <span class="token operator">=</span> <span class="token string">'insert into users set ?'</span>
+db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>sql<span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token literal-property property">username</span><span class="token operator">:</span>userinfo<span class="token punctuation">.</span>username<span class="token punctuation">,</span><span class="token literal-property property">password</span><span class="token operator">:</span>userinfo<span class="token punctuation">.</span>password<span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span>results</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">status</span><span class="token operator">:</span><span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">message</span><span class="token operator">:</span>err<span class="token punctuation">.</span>message<span class="token punctuation">,</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">//判断影响行数是否为1</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>results<span class="token punctuation">.</span>affectedRows <span class="token operator">!==</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            <span class="token literal-property property">status</span><span class="token operator">:</span><span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">'注册用户失败，请稍后再试'</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">//注册用户成功</span>
+    res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+        <span class="token literal-property property">status</span><span class="token operator">:</span><span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">'注册成功！'</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
+
+<h2 id="优化代码"><a href="#优化代码" class="headerlink" title="优化代码"></a>优化代码</h2><p>1、对res.send()进行优化</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//在路由之前，封装res.cc函数</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span>res<span class="token punctuation">,</span>next</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+    <span class="token comment">//status 默认值为1，表示失败的情况</span>
+    <span class="token comment">//err都值，可能是一个错误对象，也可能是一个错误的描述字符串</span>
+    res<span class="token punctuation">.</span><span class="token function-variable function">cc</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span>status <span class="token operator">=</span> <span class="token number">1</span></span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+            status<span class="token punctuation">,</span>
+            <span class="token literal-property property">message</span><span class="token operator">:</span>err <span class="token keyword">instanceof</span> <span class="token class-name">Error</span> <span class="token operator">?</span> err<span class="token punctuation">.</span>message <span class="token operator">:</span> err
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
+
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// return res.send(&#123;</span>
+<span class="token comment">//     status:1,</span>
+<span class="token comment">//     message:err.message,</span>
+<span class="token comment">// &#125;)</span>
+<span class="token comment">//修改后</span>
+<span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">cc</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span></code></pre>
+
+<p>2、优化表单数据验证</p>
+<p>使用第三方数据验证模块，来降低出错率、提高验证的效率与可维护性</p>
+<ul>
+<li>安装 hapi&#x2F;joi 包，为表单中携带的每个数据项，定义验证规则：</li>
+</ul>
+<pre class="language-none"><code class="language-none">npm install @hapi&#x2F;joi@17.1.0</code></pre>
+
+<ul>
+<li>安装 escook&#x2F;express-joi 用来实现自动对表单数据进行验证的功能：</li>
+</ul>
+<pre class="language-none"><code class="language-none">npm install escook&#x2F;express-joi</code></pre>
+
+<p>创建文件</p>
+<p><img src="/%5Cimages%5Cimage-20220123205253522.png" alt="image-20220123205253522" loading="lazy"></p>
+<p>写入规则</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//定义 用户信息验证规则模块</span>
+<span class="token keyword">const</span> joi <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@hapi/joi'</span><span class="token punctuation">)</span>
+
+<span class="token comment">/**
+ * string() 值必须是字符串
+ * alphanum() 值只能包含字母和数字的字符串
+ * min(length) 最小长度
+ * max(length) 最大长度
+ * required() 的值是必须项，不能为undefined
+ * pattern(正则表达式) 值必须符合正则表达式的规则
+ * **/</span>
+
+<span class="token comment">//用户名验证规则</span>
+<span class="token keyword">const</span> username <span class="token operator">=</span> joi<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">alphanum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">//密码的验证规则</span>
+<span class="token keyword">const</span> password <span class="token operator">=</span> joi<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">pattern</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^[\S]&#123;6,12&#125;]$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment">//注册和登录表单的验证规则对象</span>
+exports<span class="token punctuation">.</span>reg_login_schema <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//表示需要对req.body 中的数据进行验证</span>
+    <span class="token literal-property property">body</span> <span class="token operator">:</span><span class="token punctuation">&#123;</span>
+        username<span class="token punctuation">,</span>
+        password<span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>修改&#x2F;router&#x2F;user.js 中的代码</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> userHandler <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../router_handler/user'</span><span class="token punctuation">)</span>
+
+<span class="token comment">//导入验证表单数据的中间件</span>
+<span class="token keyword">const</span> expressJoi <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@escook/express-joi'</span><span class="token punctuation">)</span>
+<span class="token comment">//导入验证表单数据的验证规则对象</span>
+<span class="token keyword">const</span> <span class="token punctuation">&#123;</span> reg_login_schema <span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../schema/user'</span><span class="token punctuation">)</span>
+
+<span class="token comment">//注册新用户</span>
+<span class="token comment">// router.post('/reguser',userHandler.regUser)</span>
+<span class="token comment">//修改后</span>
+router<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/reguser'</span><span class="token punctuation">,</span><span class="token function">expressJoi</span><span class="token punctuation">(</span>reg_login_schema<span class="token punctuation">)</span><span class="token punctuation">,</span>userHandler<span class="token punctuation">.</span>regUser<span class="token punctuation">)</span>
+<span class="token comment">//登录</span>
+<span class="token comment">// router.post('/login',userHandler.login)</span>
+router<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/login'</span><span class="token punctuation">,</span>userHandler<span class="token punctuation">.</span>login<span class="token punctuation">)</span></code></pre>
+
+<p>在app.js  的全局错误界别中间件中，捕获验证失败的错误，并把验证失败的结果响应给客户端：</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> joi <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@hapi/joi'</span><span class="token punctuation">)</span>
+<span class="token comment">//定义错误级别的中间件</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span>req<span class="token punctuation">,</span>res<span class="token punctuation">,</span>next</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">//数据验证失败导致的错误</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>err <span class="token keyword">instanceof</span> <span class="token class-name">joi<span class="token punctuation">.</span>ValidationError</span><span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">cc</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token comment">//未知错误</span>
+    res<span class="token punctuation">.</span><span class="token function">cc</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
+
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>实现步骤</p>
+<ol>
+<li>检测表单数据是否合法</li>
+<li>根据用户名查询用户的数据</li>
+<li>判断用户输入的密码是否争取</li>
+<li>生成JWT的Token字符串</li>
+</ol>
+<h3 id="检测登录表单的数据是否合法"><a href="#检测登录表单的数据是否合法" class="headerlink" title="检测登录表单的数据是否合法"></a>检测登录表单的数据是否合法</h3><p>将 &#x2F;router&#x2F;user.js 中登录的路由代码修改</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//登录</span>
+<span class="token comment">// router.post('/login',userHandler.login)</span>
+router<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/login'</span><span class="token punctuation">,</span><span class="token function">expressJoi</span><span class="token punctuation">(</span>reg_login_schema<span class="token punctuation">)</span><span class="token punctuation">,</span>userHandler<span class="token punctuation">.</span>login<span class="token punctuation">)</span></code></pre>
+
+<h3 id="根据用户名查询用户的数据"><a href="#根据用户名查询用户的数据" class="headerlink" title="根据用户名查询用户的数据"></a>根据用户名查询用户的数据</h3><ul>
+<li>接收表单数据</li>
+</ul>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> userinfo <span class="token operator">=</span> req<span class="token punctuation">.</span>body</code></pre>
+
+<ul>
+<li>定义SQL语句</li>
+</ul>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> sql <span class="token operator">=</span> <span class="token string">'select * from users where username=?'</span></code></pre>
+
+<ul>
+<li>执行SQL语句</li>
+</ul>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//接收表单数据</span>
+<span class="token keyword">const</span> userinfo <span class="token operator">=</span> req<span class="token punctuation">.</span>body
+<span class="token comment">//定义SQL语句</span>
+<span class="token keyword">const</span> sql <span class="token operator">=</span> <span class="token string">'select * from users where username=?'</span>
+<span class="token comment">//执行SQL语句</span>
+db<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>sql<span class="token punctuation">,</span>userinfo<span class="token punctuation">.</span>username<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span>results</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+    <span class="token comment">//执行SQL语句失败</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">cc</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token comment">//执行SQL语句成功,但是获取到的数据条数不等于1</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>results<span class="token punctuation">.</span>length <span class="token operator">!==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">cc</span><span class="token punctuation">(</span><span class="token string">'登录失败！'</span><span class="token punctuation">)</span>
+
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
+
+<p>判断用户输入的面是否正确</p>
+<p><u>核心思路：调用bcrypt.compareSync(用户提交的棉麻，数据库中的密码) 方法比较密码是否一直</u></p>
+<p>返回值(true 表示一致，false 表示不一致)</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//使用用户输入的密码，和数据库中存储的棉麻进行比较</span>
+<span class="token keyword">const</span> compareResult <span class="token operator">=</span> bcrypt<span class="token punctuation">.</span><span class="token function">compareSync</span><span class="token punctuation">(</span>userinfo<span class="token punctuation">.</span>password<span class="token punctuation">,</span>results<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>password<span class="token punctuation">)</span>
+
+<span class="token comment">//如果对比的结果等于false，密码错误</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>compareResult<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">cc</span><span class="token punctuation">(</span><span class="token string">'登录失败'</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="生成JWT的Token字符串"><a href="#生成JWT的Token字符串" class="headerlink" title="生成JWT的Token字符串"></a>生成JWT的Token字符串</h2><!--核心注意点：在生成Token字符串的时候，一定要剔除密码和头像的值-->
+
+<p>通过ES6的高级语法，快速剔除 <em>密码</em> 和 <em>头像</em> 的值</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> user <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token operator">...</span>results<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token literal-property property">password</span><span class="token operator">:</span><span class="token string">''</span><span class="token punctuation">,</span><span class="token literal-property property">user_pic</span><span class="token operator">:</span><span class="token string">''</span><span class="token punctuation">&#125;</span></code></pre>
+
+<p>安装Token字符串包</p>
+<pre class="language-none"><code class="language-none">npm i jsonwebtoken@8.5.1</code></pre>
+
+<p>在handler&#x2F;user.js中修改</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//导入生成Token 的包</span>
+<span class="token keyword">const</span> jwt<span class="token operator">=</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'jsonwebtoken'</span><span class="token punctuation">)</span>
+<span class="token comment">//导入全局的配置文件</span>
+<span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../config'</span><span class="token punctuation">)</span>
+
+<span class="token comment">//在服务器端生成Token字符串</span>
+<span class="token comment">//通过ES6语法快速剔除 密码 头像 敏感信息</span>
+<span class="token keyword">const</span> user <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token operator">...</span>results<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token literal-property property">password</span><span class="token operator">:</span><span class="token string">''</span><span class="token punctuation">,</span><span class="token literal-property property">user_pic</span><span class="token operator">:</span><span class="token string">''</span><span class="token punctuation">&#125;</span>
+<span class="token comment">//对用户的信息进行加密，生成Token字符串</span>
+<span class="token keyword">const</span> tokenStr <span class="token operator">=</span> jwt<span class="token punctuation">.</span><span class="token function">sign</span><span class="token punctuation">(</span>user<span class="token punctuation">,</span>config<span class="token punctuation">.</span>jwtSecretKey<span class="token punctuation">,</span><span class="token punctuation">&#123;</span><span class="token literal-property property">expiresIn</span><span class="token operator">:</span>config<span class="token punctuation">.</span>expiresIn<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token comment">//调用res.send（）将Token响应给客户端</span>
+res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">status</span><span class="token operator">:</span><span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">message</span><span class="token operator">:</span><span class="token string">'登录成功！'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">token</span><span class="token operator">:</span><span class="token string">'Bearer '</span><span class="token operator">+</span>tokenStr
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
+
+<p>创建config.js制定全局配置</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//这是一个全局的配置文件</span>
+
+module<span class="token punctuation">.</span>exports<span class="token operator">=</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">//加密和解密Token的密钥</span>
+    <span class="token literal-property property">jwtSecretKey</span><span class="token operator">:</span><span class="token string">'lanlan ^v^'</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">expiresIn</span><span class="token operator">:</span><span class="token string">'10h'</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="配置解析Token-的中间件"><a href="#配置解析Token-的中间件" class="headerlink" title="配置解析Token 的中间件"></a>配置解析Token 的中间件</h2><p>安装包</p>
+<pre class="language-none"><code class="language-none">npm install express-jwt@5.3.3</code></pre>
+
+<p>在app.js 中注册路由之前，配置解析Token的中间件</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//导入配置文件</span>
+<span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./config'</span><span class="token punctuation">)</span>
+<span class="token comment">//解析token的中间件</span>
+<span class="token keyword">const</span> expressJWT <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express-jwt'</span><span class="token punctuation">)</span>
+<span class="token comment">//使用 .unless(&#123;path:[/^\/api\//]&#125;)指定哪些接口不需要进行Token 的身份认证</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">expressJWT</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">secret</span><span class="token operator">:</span>config<span class="token punctuation">.</span>jwtSecretKey<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unless</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">path</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\/api\/</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+
+<p>在app.js中的错误级别中间件中，捕获并处理Token认证失败后的错误</p>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>Lanlan</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://archer-lan.github.io/2022/03/04/Node.js%20%E5%AD%A6%E4%B9%A0-%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/" title="Node.js 学习 项目开发实践">https://archer-lan.github.io/2022/03/04/Node.js%20%E5%AD%A6%E4%B9%A0-%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2022/03/04/Node.js%20%E5%AD%A6%E4%B9%A0-09/" rel="prev" title="Node.js 学习-09"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">Node.js 学习-09</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/03/04/Node.js%20%E5%AD%A6%E4%B9%A0-08/" rel="next" title="Node.js 学习-08"><span class="post-nav-text">Node.js 学习-08</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>要不要和我说些什么？</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备xxxxxxxx号</a></div><div class="copyright"><span>&copy; 2019 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Lanlan</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.0.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.7.0</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2019-02-14T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#6200ee" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4","5-12"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>

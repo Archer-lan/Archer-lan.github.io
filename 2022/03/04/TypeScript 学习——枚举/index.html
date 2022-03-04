@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#6200ee"><meta name="author" content="Lanlan"><meta name="copyright" content="Lanlan"><meta name="generator" content="Hexo 6.0.0"><meta name="theme" content="hexo-theme-yun"><title>TypeScript 学习——枚举 | Blog of Lanlan</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/png" href="/bitbug_favicon.ico"><link rel="mask-icon" href="/bitbug_favicon.ico" color="#6200ee"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"archer-lan.github.io","root":"/","title":"蓝蓝的小站","version":"1.7.0","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="&#x2F;&#x2F;枚举 &#x2F;&#x2F;支持数字枚举和基于字符串的枚举 enum Direction&amp;#123;     Up &#x3D;1,     Down,     Left,     Right, &amp;#125; &#x2F;&#x2F;此处将Up初始化为1，则其他成员会从1开始自动增长。 &#x2F;&#x2F;没有初始化时，从开始自动增长  &#x2F;&#x2F;使用枚举属性访问枚举成员 enum response&amp;#123;     No&#x3D;0,     Yes &#x3D;1, &amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript 学习——枚举">
+<meta property="og:url" content="https://archer-lan.github.io/2022/03/04/TypeScript%20%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E6%9E%9A%E4%B8%BE/index.html">
+<meta property="og:site_name" content="Blog of Lanlan">
+<meta property="og:description" content="&#x2F;&#x2F;枚举 &#x2F;&#x2F;支持数字枚举和基于字符串的枚举 enum Direction&amp;#123;     Up &#x3D;1,     Down,     Left,     Right, &amp;#125; &#x2F;&#x2F;此处将Up初始化为1，则其他成员会从1开始自动增长。 &#x2F;&#x2F;没有初始化时，从开始自动增长  &#x2F;&#x2F;使用枚举属性访问枚举成员 enum response&amp;#123;     No&#x3D;0,     Yes &#x3D;1, &amp;#1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-04T09:48:28.128Z">
+<meta property="article:modified_time" content="2022-03-04T10:30:24.223Z">
+<meta property="article:author" content="Lanlan">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button sidebar-nav-active" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel sidebar-panel-active" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Lanlan"><img width="96" loading="lazy" src="/images/avater.png" alt="Lanlan"><span class="site-author-status" title="天天开心">😭</span></a><div class="site-author-name"><a href="/about/">Lanlan</a></div><span class="site-name">Blog of Lanlan</span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">17</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">3</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=781251187&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Archer-lan" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:lan78125@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=280461298" title="网易云音乐" target="_blank" style="color:#C10D0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/20745958?spm_id_from=333.1007.0.0" title="哔哩哔哩动画" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content">此文章未包含目录</div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://Archer-lan.github.io/2022/03/04/TypeScript%20%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E6%9E%9A%E4%B8%BE/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Lanlan"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Blog of Lanlan"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">TypeScript 学习——枚举</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-03-04 17:48:28" itemprop="dateCreated datePublished" datetime="2022-03-04T17:48:28+08:00">2022-03-04</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Typescript-Learning/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Typescript Learning</span></a></span></span></div><div class="post-author"><div class="author-avatar"><img src="https://www.gravatar.com/avatar/8d43d7964b8cab986fa862a4518075a2?s=20&amp;d=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2FYunYouJun%2Fcdn%2Fimg%2Favatar%2Fnone.jpg"></div><span class="author-name">Lanlan</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#6200ee;"><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">//枚举</span>
+<span class="token comment">//支持数字枚举和基于字符串的枚举</span>
+<span class="token keyword">enum</span> Direction<span class="token punctuation">&#123;</span>
+    Up <span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>
+    Down<span class="token punctuation">,</span>
+    Left<span class="token punctuation">,</span>
+    Right<span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//此处将Up初始化为1，则其他成员会从1开始自动增长。</span>
+<span class="token comment">//没有初始化时，从开始自动增长</span>
+
+<span class="token comment">//使用枚举属性访问枚举成员</span>
+<span class="token keyword">enum</span> response<span class="token punctuation">&#123;</span>
+    No<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>
+    Yes <span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">function</span> <span class="token function">respond</span><span class="token punctuation">(</span>recipient<span class="token operator">:</span><span class="token builtin">string</span><span class="token punctuation">,</span>message<span class="token operator">:</span>response<span class="token punctuation">)</span><span class="token operator">:</span><span class="token keyword">void</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//..</span>
+<span class="token punctuation">&#125;</span>
+<span class="token function">respond</span><span class="token punctuation">(</span><span class="token string">'Princess Caroline'</span><span class="token punctuation">,</span>response<span class="token punctuation">.</span>Yes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//不带初始化器的枚举 或者被放在第一的位置，或者被放在使用了数字敞亮或其他常量初始化了的枚举后面。</span>
+<span class="token comment">//如以下情况不被允许,报错</span>
+<span class="token comment">// enum E&#123;</span>
+<span class="token comment">//     A =getSomeValue(),</span>
+<span class="token comment">//     B,</span>
+<span class="token comment">// &#125;</span>
+
+<span class="token comment">//字符串枚举</span>
+<span class="token comment">//每个成员都必须用字符串字面量，或另外一个字符串成员进行初始化</span>
+
+<span class="token keyword">enum</span> Directionc<span class="token punctuation">&#123;</span>
+    Up <span class="token operator">=</span> <span class="token string">'UP'</span><span class="token punctuation">,</span>
+    Down <span class="token operator">=</span> <span class="token string">'DOWN'</span><span class="token punctuation">,</span>
+    Left <span class="token operator">=</span> <span class="token string">'LEFT'</span><span class="token punctuation">,</span>
+    Right <span class="token operator">=</span> <span class="token string">'RIGHT'</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//数字枚举时，其值很难访问，字符串枚举时提供一个可读值，独立于枚举成员的名字。</span>
+
+<span class="token comment">//异构枚举</span>
+<span class="token comment">//它不带有初始化器且它之前的枚举成员是一个 数字常量。 这种情况下，当前枚举成员的值为它上一个枚举成员的值加1。</span>
+<span class="token keyword">enum</span> <span class="token constant">E2</span> <span class="token punctuation">&#123;</span>
+    <span class="token constant">A</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> <span class="token constant">C</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//字面量枚举成员的类型</span>
+<span class="token comment">//字面量枚举成员是指不带有初始值的常量枚举成员，或者是值被初始化为</span>
+<span class="token comment">//1、任何字符串字面量</span>
+<span class="token comment">//2、任何数字字面量</span>
+<span class="token comment">//3、应用了一元 - 符号的数字字面量</span>
+<span class="token comment">//当所有枚举成员都拥有字面量枚举值时，它就带有了一种特殊的语义。</span>
+
+<span class="token comment">// 首先，枚举成员成为了类型！ 例如，我们可以说某些成员 只能是枚举成员的值：</span>
+<span class="token comment">// enum ShapeKind&#123;</span>
+<span class="token comment">//     Circle,</span>
+<span class="token comment">//     Square,</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// interface Circle&#123;</span>
+<span class="token comment">//     kind:ShapeKind.Circle,</span>
+<span class="token comment">//     radius:number,</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// interface Square&#123;</span>
+<span class="token comment">//     kind:ShapeKind.Square;</span>
+<span class="token comment">//     sideLength:number;</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// let c:Circle = &#123;</span>
+<span class="token comment">//     kind :ShapeKind.Square,</span>
+<span class="token comment">//     //报错，此值只属于CIRCLE</span>
+<span class="token comment">//     radius:100,</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">//</span>
+<span class="token comment">// //枚举类型编程每个枚举成员的联合</span>
+<span class="token comment">// enum E&#123;</span>
+<span class="token comment">//     Foo,</span>
+<span class="token comment">//     Bar,</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// function f(x:E) &#123;</span>
+<span class="token comment">//     if(x!==E.Foo||x!==E.Bar)&#123;</span>
+<span class="token comment">//         //报错。此处类型系统可以指导枚举里的值的集合</span>
+<span class="token comment">//         //我们先检查 x是否不是 E.Foo。 如果通过了这个检查，然后 ||会发生短路效果， if语句体里的内容会被执行。 然而，这个检查没有通过，那么 x则 只能为 E.Foo，因此没理由再去检查它是否为 E.Bar。</span>
+<span class="token comment">//     &#125;</span>
+<span class="token comment">// &#125;</span>
+
+<span class="token comment">// function f(obj:&#123;X:number&#125;) &#123;</span>
+<span class="token comment">//     return obj.X;</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// f(E2)//此处当E中有X 属性时可以运行。</span>
+
+<span class="token comment">//反向映射</span>
+<span class="token comment">//可以从枚举值到枚举名</span>
+<span class="token keyword">enum</span> Enum<span class="token punctuation">&#123;</span>
+    <span class="token constant">A</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">let</span> a <span class="token operator">=</span> Enum<span class="token punctuation">.</span><span class="token constant">A</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> nameOfA <span class="token operator">=</span> Enum<span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//'A'</span>
+<span class="token comment">//不会为字符串枚举成员生成反向映射</span>
+
+<span class="token comment">//const 枚举</span>
+<span class="token comment">//常量枚举只能使用常量枚举表达式，并且不同于常规的枚举，他们在编译阶段会被删除。</span>
+<span class="token comment">//常量枚举成员在使用的地方会被内联进来。之所以可以这么做是因为，常量枚举不允许包含计算成员。</span>
+<span class="token comment">// const enum Directions&#123;</span>
+<span class="token comment">//     Up,</span>
+<span class="token comment">//     Down,</span>
+<span class="token comment">//     Left,</span>
+<span class="token comment">//     Right</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// let directions = &#123;</span>
+<span class="token comment">//     Directions.Up,</span>
+<span class="token comment">//     Directions.Down,</span>
+<span class="token comment">// &#125;</span>
+
+<span class="token comment">//外部枚举</span>
+<span class="token keyword">declare</span> <span class="token keyword">enum</span> Enum2<span class="token punctuation">&#123;</span>
+    <span class="token constant">B</span><span class="token punctuation">,</span>
+    <span class="token constant">C</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//外部枚举和非外部枚举之间有一个重要的区别，在正常的枚举里，没有初始化方法的成员被当成常数成员。 对于非常数的外部枚举而言，没有初始化方法时被当做需要经过计算的。</span>
+
+<span class="token comment">//枚举</span>
+<span class="token comment">//支持数字枚举和基于字符串的枚举</span>
+<span class="token keyword">enum</span> Direction<span class="token punctuation">&#123;</span>
+    Up <span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>
+    Down<span class="token punctuation">,</span>
+    Left<span class="token punctuation">,</span>
+    Right<span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//此处将Up初始化为1，则其他成员会从1开始自动增长。</span>
+<span class="token comment">//没有初始化时，从开始自动增长</span>
+
+<span class="token comment">//使用枚举属性访问枚举成员</span>
+<span class="token keyword">enum</span> response<span class="token punctuation">&#123;</span>
+    No<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>
+    Yes <span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">function</span> <span class="token function">respond</span><span class="token punctuation">(</span>recipient<span class="token operator">:</span><span class="token builtin">string</span><span class="token punctuation">,</span>message<span class="token operator">:</span>response<span class="token punctuation">)</span><span class="token operator">:</span><span class="token keyword">void</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">//..</span>
+<span class="token punctuation">&#125;</span>
+<span class="token function">respond</span><span class="token punctuation">(</span><span class="token string">'Princess Caroline'</span><span class="token punctuation">,</span>response<span class="token punctuation">.</span>Yes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">//不带初始化器的枚举 或者被放在第一的位置，或者被放在使用了数字敞亮或其他常量初始化了的枚举后面。</span>
+<span class="token comment">//如以下情况不被允许,报错</span>
+<span class="token comment">// enum E&#123;</span>
+<span class="token comment">//     A =getSomeValue(),</span>
+<span class="token comment">//     B,</span>
+<span class="token comment">// &#125;</span>
+
+<span class="token comment">//字符串枚举</span>
+<span class="token comment">//每个成员都必须用字符串字面量，或另外一个字符串成员进行初始化</span>
+
+<span class="token keyword">enum</span> Directionc<span class="token punctuation">&#123;</span>
+    Up <span class="token operator">=</span> <span class="token string">'UP'</span><span class="token punctuation">,</span>
+    Down <span class="token operator">=</span> <span class="token string">'DOWN'</span><span class="token punctuation">,</span>
+    Left <span class="token operator">=</span> <span class="token string">'LEFT'</span><span class="token punctuation">,</span>
+    Right <span class="token operator">=</span> <span class="token string">'RIGHT'</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//数字枚举时，其值很难访问，字符串枚举时提供一个可读值，独立于枚举成员的名字。</span>
+
+<span class="token comment">//异构枚举</span>
+<span class="token comment">//它不带有初始化器且它之前的枚举成员是一个 数字常量。 这种情况下，当前枚举成员的值为它上一个枚举成员的值加1。</span>
+<span class="token keyword">enum</span> <span class="token constant">E2</span> <span class="token punctuation">&#123;</span>
+    <span class="token constant">A</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> <span class="token constant">C</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//字面量枚举成员的类型</span>
+<span class="token comment">//字面量枚举成员是指不带有初始值的常量枚举成员，或者是值被初始化为</span>
+<span class="token comment">//1、任何字符串字面量</span>
+<span class="token comment">//2、任何数字字面量</span>
+<span class="token comment">//3、应用了一元 - 符号的数字字面量</span>
+<span class="token comment">//当所有枚举成员都拥有字面量枚举值时，它就带有了一种特殊的语义。</span>
+
+<span class="token comment">// 首先，枚举成员成为了类型！ 例如，我们可以说某些成员 只能是枚举成员的值：</span>
+<span class="token comment">// enum ShapeKind&#123;</span>
+<span class="token comment">//     Circle,</span>
+<span class="token comment">//     Square,</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// interface Circle&#123;</span>
+<span class="token comment">//     kind:ShapeKind.Circle,</span>
+<span class="token comment">//     radius:number,</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// interface Square&#123;</span>
+<span class="token comment">//     kind:ShapeKind.Square;</span>
+<span class="token comment">//     sideLength:number;</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// let c:Circle = &#123;</span>
+<span class="token comment">//     kind :ShapeKind.Square,</span>
+<span class="token comment">//     //报错，此值只属于CIRCLE</span>
+<span class="token comment">//     radius:100,</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">//</span>
+<span class="token comment">// //枚举类型编程每个枚举成员的联合</span>
+<span class="token comment">// enum E&#123;</span>
+<span class="token comment">//     Foo,</span>
+<span class="token comment">//     Bar,</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// function f(x:E) &#123;</span>
+<span class="token comment">//     if(x!==E.Foo||x!==E.Bar)&#123;</span>
+<span class="token comment">//         //报错。此处类型系统可以指导枚举里的值的集合</span>
+<span class="token comment">//         //我们先检查 x是否不是 E.Foo。 如果通过了这个检查，然后 ||会发生短路效果， if语句体里的内容会被执行。 然而，这个检查没有通过，那么 x则 只能为 E.Foo，因此没理由再去检查它是否为 E.Bar。</span>
+<span class="token comment">//     &#125;</span>
+<span class="token comment">// &#125;</span>
+
+<span class="token comment">// function f(obj:&#123;X:number&#125;) &#123;</span>
+<span class="token comment">//     return obj.X;</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// f(E2)//此处当E中有X 属性时可以运行。</span>
+
+<span class="token comment">//反向映射</span>
+<span class="token comment">//可以从枚举值到枚举名</span>
+<span class="token keyword">enum</span> Enum<span class="token punctuation">&#123;</span>
+    <span class="token constant">A</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">let</span> a <span class="token operator">=</span> Enum<span class="token punctuation">.</span><span class="token constant">A</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> nameOfA <span class="token operator">=</span> Enum<span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//'A'</span>
+<span class="token comment">//不会为字符串枚举成员生成反向映射</span>
+
+<span class="token comment">//const 枚举</span>
+<span class="token comment">//常量枚举只能使用常量枚举表达式，并且不同于常规的枚举，他们在编译阶段会被删除。</span>
+<span class="token comment">//常量枚举成员在使用的地方会被内联进来。之所以可以这么做是因为，常量枚举不允许包含计算成员。</span>
+<span class="token comment">// const enum Directions&#123;</span>
+<span class="token comment">//     Up,</span>
+<span class="token comment">//     Down,</span>
+<span class="token comment">//     Left,</span>
+<span class="token comment">//     Right</span>
+<span class="token comment">// &#125;</span>
+<span class="token comment">// let directions = &#123;</span>
+<span class="token comment">//     Directions.Up,</span>
+<span class="token comment">//     Directions.Down,</span>
+<span class="token comment">// &#125;</span>
+
+<span class="token comment">//外部枚举</span>
+<span class="token keyword">declare</span> <span class="token keyword">enum</span> Enum2<span class="token punctuation">&#123;</span>
+    <span class="token constant">B</span><span class="token punctuation">,</span>
+    <span class="token constant">C</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//外部枚举和非外部枚举之间有一个重要的区别，在正常的枚举里，没有初始化方法的成员被当成常数成员。 对于非常数的外部枚举而言，没有初始化方法时被当做需要经过计算的。</span>
+
+</code></pre>
+
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>Lanlan</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://archer-lan.github.io/2022/03/04/TypeScript%20%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E6%9E%9A%E4%B8%BE/" title="TypeScript 学习——枚举">https://archer-lan.github.io/2022/03/04/TypeScript%20%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E6%9E%9A%E4%B8%BE/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/03/04/TypeScript%20%E5%AD%A6%E4%B9%A0%20%E2%80%94%E2%80%94%E7%B1%BB%E5%9E%8B%E6%8E%A8%E8%AE%BA/" rel="next" title="TypeScript 学习 ——类型推论"><span class="post-nav-text">TypeScript 学习 ——类型推论</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>要不要和我说些什么？</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备xxxxxxxx号</a></div><div class="copyright"><span>&copy; 2019 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Lanlan</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.0.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.7.0</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2019-02-14T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#6200ee" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4","5-12"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>
