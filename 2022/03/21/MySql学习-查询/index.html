@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#6200ee"><meta name="author" content="Lanlan"><meta name="copyright" content="Lanlan"><meta name="generator" content="Hexo 6.0.0"><meta name="theme" content="hexo-theme-yun"><title>MySql学习-查询 | Blog of Lanlan</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/png" href="/bitbug_favicon.ico"><link rel="mask-icon" href="/bitbug_favicon.ico" color="#6200ee"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"archer-lan.github.io","root":"/","title":"蓝蓝的小站","version":"1.7.0","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="使用某个数据库use &lt;数据库名称&gt;  查询当前使用的数据库select database() select version() &#x2F;&#x2F;查询版本  &#x2F;&#x2F;\c结束一条语句 &#x2F;&#x2F;exit 退出mysql  查看创建表的语句会显示对应表，创建时使用的sql语句 show create table &lt;表名称&gt;  简单查询语句">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySql学习-查询">
+<meta property="og:url" content="https://archer-lan.github.io/2022/03/21/MySql%E5%AD%A6%E4%B9%A0-%E6%9F%A5%E8%AF%A2/index.html">
+<meta property="og:site_name" content="Blog of Lanlan">
+<meta property="og:description" content="使用某个数据库use &lt;数据库名称&gt;  查询当前使用的数据库select database() select version() &#x2F;&#x2F;查询版本  &#x2F;&#x2F;\c结束一条语句 &#x2F;&#x2F;exit 退出mysql  查看创建表的语句会显示对应表，创建时使用的sql语句 show create table &lt;表名称&gt;  简单查询语句">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-21T06:55:12.709Z">
+<meta property="article:modified_time" content="2022-03-20T09:07:44.716Z">
+<meta property="article:author" content="Lanlan">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Lanlan"><img width="96" loading="lazy" src="/images/avater.png" alt="Lanlan"><span class="site-author-status" title="天天开心">😭</span></a><div class="site-author-name"><a href="/about/">Lanlan</a></div><a class="site-name" href="/about/site.html">Blog of Lanlan</a><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">26</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=781251187&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Archer-lan" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:lan78125@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=280461298" title="网易云音乐" target="_blank" style="color:#C10D0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/20745958?spm_id_from=333.1007.0.0" title="哔哩哔哩动画" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9F%90%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">使用某个数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%BD%93%E5%89%8D%E4%BD%BF%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">查询当前使用的数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%9B%E5%BB%BA%E8%A1%A8%E7%9A%84%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.</span> <span class="toc-text">查看创建表的语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="toc-number">4.</span> <span class="toc-text">简单查询语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%99%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E7%9A%84%E5%88%97%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-number">4.1.</span> <span class="toc-text">给查询结果的列重命名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="toc-number">5.</span> <span class="toc-text">条件查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">5.1.</span> <span class="toc-text">支持的运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="toc-number">5.2.</span> <span class="toc-text">排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%87%BD%E6%95%B0"><span class="toc-number">5.3.</span> <span class="toc-text">分组函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E4%B8%BA0"><span class="toc-number">5.4.</span> <span class="toc-text">替换为0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#group-by-%E5%92%8Chaving"><span class="toc-number">5.5.</span> <span class="toc-text">group by 和having</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E8%AE%B0%E5%BD%95"><span class="toc-number">5.6.</span> <span class="toc-text">去除重复记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="toc-number">6.</span> <span class="toc-text">连接查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%88%86%E7%B1%BB"><span class="toc-number">6.1.</span> <span class="toc-text">连接分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A5-inner"><span class="toc-number">6.2.</span> <span class="toc-text">等值连接 inner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A5"><span class="toc-number">6.3.</span> <span class="toc-text">非等值连接</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://Archer-lan.github.io/2022/03/21/MySql%E5%AD%A6%E4%B9%A0-%E6%9F%A5%E8%AF%A2/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Lanlan"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Blog of Lanlan"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">MySql学习-查询</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-03-21 14:55:12" itemprop="dateCreated datePublished" datetime="2022-03-21T14:55:12+08:00">2022-03-21</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2022-03-20 17:07:44" itemprop="dateModified" datetime="2022-03-20T17:07:44+08:00">2022-03-20</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/MySql%E5%AD%A6%E4%B9%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">MySql学习</span></a></span></span></div><div class="post-author"><div class="author-avatar"><img src="https://www.gravatar.com/avatar/8d43d7964b8cab986fa862a4518075a2?s=20&amp;d=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2FYunYouJun%2Fcdn%2Fimg%2Favatar%2Fnone.jpg"></div><span class="author-name">Lanlan</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#6200ee;"><h2 id="使用某个数据库"><a href="#使用某个数据库" class="headerlink" title="使用某个数据库"></a><code>使用某个数据库</code></h2><pre class="language-mysql" data-language="mysql"><code class="language-mysql">use &lt;数据库名称&gt;</code></pre>
+
+<h2 id="查询当前使用的数据库"><a href="#查询当前使用的数据库" class="headerlink" title="查询当前使用的数据库"></a>查询当前使用的数据库</h2><pre class="language-mysql" data-language="mysql"><code class="language-mysql">select database()
+select version() &#x2F;&#x2F;查询版本
+
+&#x2F;&#x2F;\c结束一条语句
+&#x2F;&#x2F;exit 退出mysql</code></pre>
+
+<h2 id="查看创建表的语句"><a href="#查看创建表的语句" class="headerlink" title="查看创建表的语句"></a>查看创建表的语句</h2><p>会显示对应表，创建时使用的<code>sql</code>语句</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">show create table &lt;表名称&gt;</code></pre>
+
+<h2 id="简单查询语句"><a href="#简单查询语句" class="headerlink" title="简单查询语句"></a>简单查询语句</h2><p><code>sql</code>语句以分号结尾，不区分大小写</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">select &lt;字段名1...&gt; from &lt;表名&gt;;
+
+select * from &lt;表名&gt;;&#x2F;&#x2F;实际开发中不建议使用</code></pre>
+
+<h3 id="给查询结果的列重命名"><a href="#给查询结果的列重命名" class="headerlink" title="给查询结果的列重命名"></a>给查询结果的列重命名</h3><pre class="language-mysql" data-language="mysql"><code class="language-mysql">select &lt;字段名..&gt;，&lt;字段名&gt;*12 as &lt;重命名名称&gt; from &lt;表名&gt;;</code></pre>
+
+<p>其中<code>*12</code>；在<code>mysql</code>中，可以直接进行运算返回结果</p>
+<p>如果是字符串的话，使用<code>&#39;&#39;</code>标记</p>
+<h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><pre class="language-mysql" data-language="mysql"><code class="language-mysql">select &lt;字段&gt; from &lt;表名&gt; where &lt;条件&gt;</code></pre>
+
+<h3 id="支持的运算符"><a href="#支持的运算符" class="headerlink" title="支持的运算符"></a>支持的运算符</h3><pre class="language-mysql" data-language="mysql"><code class="language-mysql">&#x3D;
+&lt;&gt;或!&#x3D;
+&lt;
+&lt;&#x3D;
+&gt;
+&gt;&#x3D;
+between..and... &#x2F;&#x2F;是闭区间
+is null
+and
+or
+in
+not
+like &#x2F;&#x2F;模糊查询支持%或下划线匹配</code></pre>
+
+<p>模糊查询</p>
+<p>找出名字中含有O的</p>
+<p><code>%</code>代表任意多个字符，<code>_</code>表示任意一个字符</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">select &lt;字段名&gt; from &lt;表名&gt; where &lt;字段名&gt; like &#39;%O%&#39;</code></pre>
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><pre class="language-mysql" data-language="mysql"><code class="language-mysql">order by
+	&lt;字段名&gt;
+&#x2F;&#x2F;asc 升序
+&#x2F;&#x2F;desc 降序，跟在字段名后面</code></pre>
+
+<p>按照工资降序排列，当工资相同的时候再按照名字的升序排列</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">select &lt;字段名&gt; from &lt;表名&gt; by &lt;字段名&gt; desc, &lt;字段名&gt; asc</code></pre>
+
+<p>越靠前的字段，作用越大，只有当前面字段的内容相等时，后面条件才生效</p>
+<h3 id="分组函数"><a href="#分组函数" class="headerlink" title="分组函数"></a>分组函数</h3><p>会自动忽略NULL</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">count &#x2F;&#x2F;计数
+sum &#x2F;&#x2F;求和
+avg &#x2F;&#x2F;平均值
+max &#x2F;&#x2F;最大值
+min &#x2F;&#x2F;最小值</code></pre>
+
+<p><code>ifnull</code>处理空值</p>
+<p><code>ifnull将NULL</code>替换为指定内容</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">select ename,ifnull(comm,0) as comm from emp</code></pre>
+
+<h3 id="替换为0"><a href="#替换为0" class="headerlink" title="替换为0"></a>替换为0</h3><h3 id="group-by-和having"><a href="#group-by-和having" class="headerlink" title="group by 和having"></a>group by 和having</h3><p><code>group by</code>按照某个字段或者某些字段进行分组</p>
+<p><code>having</code>对分组之后的数据进行在此过滤</p>
+<p>找出每个工作岗位的最高薪资</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">select &lt;字段名&gt; from &lt;表名&gt; group by &lt;字段名&gt;</code></pre>
+
+<p>多个字段联合分组</p>
+<p>找出每个部门不同工作岗位的最高薪资</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">select deptno,job,max(sal) from emp group by deptno,job;</code></pre>
+
+<p>找出每个部门的最高薪资，要求显示薪资大于2900的数据</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">select max(sal),deptno from emp group by deptno having max(sal) &gt; 2900;
+&#x2F;&#x2F;where 更好
+select max(sal),deptno from emp where sal&gt; 2900 group by deptno ;</code></pre>
+
+<h3 id="去除重复记录"><a href="#去除重复记录" class="headerlink" title="去除重复记录"></a>去除重复记录</h3><pre class="language-mysql" data-language="mysql"><code class="language-mysql">select distinct job from emp; </code></pre>
+
+<h2 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h2><h3 id="连接分类"><a href="#连接分类" class="headerlink" title="连接分类"></a>连接分类</h3><p>内连接：</p>
+<ul>
+<li>等值连接</li>
+<li>非等值连接</li>
+<li>自连接</li>
+</ul>
+<p>外连接：</p>
+<ul>
+<li>左外连接</li>
+<li>右外连接</li>
+</ul>
+<p>全连接</p>
+<h3 id="等值连接-inner"><a href="#等值连接-inner" class="headerlink" title="等值连接 inner"></a>等值连接 inner</h3><p>查询每个员工的部门名称，要求显示员工名和部门名</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">select e.name,d.dname from emp e join dept d on e.deptno &#x3D; d.deptno</code></pre>
+
+<p><code>...join ... on ...</code> 后面接连接条件</p>
+<h3 id="非等值连接"><a href="#非等值连接" class="headerlink" title="非等值连接"></a>非等值连接</h3><p>特点：连接条件中的关系是非等值关系</p>
+<p>找出每个员工的工资等级，要求显示员工名，工资，工资等级</p>
+<pre class="language-mysql" data-language="mysql"><code class="language-mysql">select e.name,e.sal,s.grade from emp e join salgrade s on e.sal between s.losal and s. hisal;</code></pre>
+
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>Lanlan</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://archer-lan.github.io/2022/03/21/MySql%E5%AD%A6%E4%B9%A0-%E6%9F%A5%E8%AF%A2/" title="MySql学习-查询">https://archer-lan.github.io/2022/03/21/MySql%E5%AD%A6%E4%B9%A0-%E6%9F%A5%E8%AF%A2/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2022/03/21/Http%E5%8D%8F%E8%AE%AE/" rel="prev" title="Http协议"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">Http协议</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/03/21/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98-DAY5/" rel="next" title="牛客刷题-DAY5"><span class="post-nav-text">牛客刷题-DAY5</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>要不要和我说些什么？</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备xxxxxxxx号</a></div><div class="copyright"><span>&copy; 2019 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Lanlan</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.0.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.7.0</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2019-02-14T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#6200ee" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4","5-12"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>
