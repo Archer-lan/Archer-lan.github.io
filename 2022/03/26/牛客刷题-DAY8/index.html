@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#6200ee"><meta name="author" content="Lanlan"><meta name="copyright" content="Lanlan"><meta name="generator" content="Hexo 6.0.0"><meta name="theme" content="hexo-theme-yun"><title>牛客刷题-DAY8 | Blog of Lanlan</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/png" href="/bitbug_favicon.ico"><link rel="mask-icon" href="/bitbug_favicon.ico" color="#6200ee"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"archer-lan.github.io","root":"/","title":"蓝蓝的小站","version":"1.7.0","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="由于手滑 DAY7的没保存 假装DAY7已经上传了。 BM52 数组中只出现一次的两个数字class Solution &amp;#123; private:     int a[1000001];     vector&lt;int&gt; b; public:     &#x2F;**      * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可      *      *">
+<meta property="og:type" content="article">
+<meta property="og:title" content="牛客刷题-DAY8">
+<meta property="og:url" content="https://archer-lan.github.io/2022/03/26/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98-DAY8/index.html">
+<meta property="og:site_name" content="Blog of Lanlan">
+<meta property="og:description" content="由于手滑 DAY7的没保存 假装DAY7已经上传了。 BM52 数组中只出现一次的两个数字class Solution &amp;#123; private:     int a[1000001];     vector&lt;int&gt; b; public:     &#x2F;**      * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可      *      *">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-26T08:52:23.741Z">
+<meta property="article:modified_time" content="2022-03-25T02:43:53.169Z">
+<meta property="article:author" content="Lanlan">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Lanlan"><img width="96" loading="lazy" src="/images/avater.png" alt="Lanlan"><span class="site-author-status" title="天天开心">😭</span></a><div class="site-author-name"><a href="/about/">Lanlan</a></div><a class="site-name" href="/about/site.html">Blog of Lanlan</a><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">29</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">4</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=781251187&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Archer-lan" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:lan78125@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=280461298" title="网易云音乐" target="_blank" style="color:#C10D0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/20745958?spm_id_from=333.1007.0.0" title="哔哩哔哩动画" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BM52-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97"><span class="toc-number">1.</span> <span class="toc-text">BM52 数组中只出现一次的两个数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BM53-%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B4%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">BM53 缺失的第一个正整数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BM54-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="toc-number">3.</span> <span class="toc-text">BM54 三数之和</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BM55-%E6%B2%A1%E6%9C%89%E9%87%8D%E5%A4%8D%E9%A1%B9%E6%95%B0%E5%AD%97%E7%9A%84%E5%85%A8%E6%8E%92%E5%88%97"><span class="toc-number">4.</span> <span class="toc-text">BM55 没有重复项数字的全排列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BM56-%E6%9C%89%E9%87%8D%E5%A4%8D%E9%A1%B9%E6%95%B0%E5%AD%97%E7%9A%84%E5%85%A8%E6%8E%92%E5%88%97"><span class="toc-number">5.</span> <span class="toc-text">BM56 有重复项数字的全排列</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://Archer-lan.github.io/2022/03/26/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98-DAY8/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Lanlan"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Blog of Lanlan"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">牛客刷题-DAY8</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-03-26 16:52:23" itemprop="dateCreated datePublished" datetime="2022-03-26T16:52:23+08:00">2022-03-26</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2022-03-25 10:43:53" itemprop="dateModified" datetime="2022-03-25T10:43:53+08:00">2022-03-25</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E6%AF%8F%E6%97%A5%E6%88%90%E9%95%BF%EF%BC%81/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">每日成长！</span></a></span></span></div><div class="post-author"><div class="author-avatar"><img src="https://www.gravatar.com/avatar/8d43d7964b8cab986fa862a4518075a2?s=20&amp;d=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2FYunYouJun%2Fcdn%2Fimg%2Favatar%2Fnone.jpg"></div><span class="author-name">Lanlan</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#6200ee;"><p>由于手滑</p>
+<p>DAY7的没保存</p>
+<p>假装DAY7已经上传了。</p>
+<h2 id="BM52-数组中只出现一次的两个数字"><a href="#BM52-数组中只出现一次的两个数字" class="headerlink" title="BM52 数组中只出现一次的两个数字"></a>BM52 数组中只出现一次的两个数字</h2><pre class="language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+private:
+    int a[1000001];
+    vector&lt;int&gt; b;
+public:
+    &#x2F;**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param array int整型vector 
+     * @return int整型vector
+     *&#x2F;
+    vector&lt;int&gt; FindNumsAppearOnce(vector&lt;int&gt;&amp; array) &#123;
+        &#x2F;&#x2F; write code here
+        memset(a,0,sizeof(a));
+        for(int i&#x3D;0;i&lt;array.size();i++)&#123;
+            a[array[i]]++;
+        &#125;
+        for(int i&#x3D;0;i&lt;1000001;i++)&#123;
+            if(a[i]&#x3D;&#x3D;1)&#123;
+                b.push_back(i);
+            &#125;
+        &#125;
+        return b;
+    &#125;
+&#125;;</code></pre>
+
+<h2 id="BM53-缺失的第一个正整数"><a href="#BM53-缺失的第一个正整数" class="headerlink" title="BM53 缺失的第一个正整数"></a>BM53 缺失的第一个正整数</h2><pre class="language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    &#x2F;**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param nums int整型vector 
+     * @return int整型
+     *&#x2F;
+    int minNumberDisappeared(vector&lt;int&gt;&amp; nums) &#123;
+        &#x2F;&#x2F; write code here
+        sort(nums.begin(), nums.end());
+        int k&#x3D;1;
+        for(int i&#x3D;0;i&lt;nums.size();i++)&#123;
+            if(nums[i]&lt;&#x3D;0)&#123;
+                continue;
+            &#125;else if(nums[i]&#x3D;&#x3D;k)&#123;
+                k++;
+            &#125;else&#123;
+                return k;
+            &#125;
+        &#125;
+        return k;
+    &#125;
+&#125;;</code></pre>
+
+<h2 id="BM54-三数之和"><a href="#BM54-三数之和" class="headerlink" title="BM54 三数之和"></a>BM54 三数之和</h2><pre class="language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt; &gt; threeSum(vector&lt;int&gt;&amp; num) &#123;
+        vector&lt;vector&lt;int&gt;&gt; ans;
+        if (num.size() &lt; 3) &#x2F;&#x2F;个数不满足的时候明显不符合要求，返回结果。
+            return ans;
+        sort(num.begin(), num.end()); &#x2F;&#x2F;对给定的数组进行排序
+ 
+        for (int i &#x3D; 0; i &lt; num.size() - 2; i++) &#x2F;&#x2F;-2是因为保证从i开始剩下的数组长度&gt;&#x3D;3
+        &#123;
+            if (num[i] &gt; 0)       &#x2F;&#x2F;基准值大于0 ,后面查找的两个数肯定不存在。
+                break;
+            int j &#x3D; i+1, k &#x3D; num.size() - 1; &#x2F;&#x2F;j从i后面的第一个数开始尝试，k从数组最后一个位置开始尝试
+            int target &#x3D; -num[i];     &#x2F;&#x2F;寻找两个数相加为target
+            while (j&lt;k)
+            &#123;
+                if (num[j] + num[k] &lt; target) &#x2F;&#x2F;说明寻找的两个数比目标值小，所以尝试更大的一种情况。
+                    j++;
+                else if (num[j] + num[k] &gt; target)&#x2F;&#x2F;说明比目标值大，尝试更小的一种情况
+                    k--;
+                else                       &#x2F;&#x2F;相等的状况。
+                &#123;
+                    vector&lt;int&gt; temp &#x3D; &#123;num[i],num[j],num[k]&#125;;
+                    ans.push_back(temp);
+                    &#x2F;&#x2F;target&#x3D;num[j]+num[k]   target一定时，确定了num[j]、num[k] 其中一个那么另外一个就确定了  那么得到的肯定就会重复
+                    &#x2F;&#x2F;所以下面两行代码是为了去掉当target一定时 重复的情况
+                    while (num[j] &#x3D;&#x3D; num[j + 1] &amp;&amp; j+1&lt;k)    j++;
+                    while (num[k] &#x3D;&#x3D; num[k - 1] &amp;&amp; k-1&gt;j)  k--;
+                    ++j; --k;      &#x2F;&#x2F;相等的话这两个数就不再使用了（已经用过了）。
+                &#125;
+            &#125;
+            &#x2F;&#x2F;为了去除target重复的情况，试想一下，当num[i]&#x3D;x的时候， i后面所有相加&#x3D;-x 的两个数已经全部求出来了。
+            &#x2F;&#x2F;那再求i+1 后面的必然是上面所求的子集。 这里依旧还是需要判断i,因为防止后面再次判断num[i+1]的时候产生越界。
+            while (num[i] &#x3D;&#x3D; num[i + 1] &amp;&amp; i &lt; num.size() - 2)   i++;
+        &#125;
+        return ans;
+ 
+    &#125;
+&#125;;</code></pre>
+
+<h2 id="BM55-没有重复项数字的全排列"><a href="#BM55-没有重复项数字的全排列" class="headerlink" title="BM55 没有重复项数字的全排列"></a>BM55 没有重复项数字的全排列</h2><pre class="language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    void recurion(vector&lt;vector&lt;int&gt;&gt;&amp; res,vector&lt;int&gt;&amp; num,int index)&#123;
+        if(index&#x3D;&#x3D;num.size()-1)
+            res.push_back(num);
+        else&#123;
+            for(int i&#x3D;index;i&lt;num.size();i++)&#123;
+                swap(num[i],num[index]);
+                recurion(res,num, index+1);&#x2F;&#x2F;每次递归index增加，避免重复排列
+                swap(num[i], num[index]);
+            &#125;
+        &#125;
+    &#125;
+    vector&lt;vector&lt;int&gt; &gt; permute(vector&lt;int&gt; &amp;num) &#123;
+        sort(num.begin(), num.end());
+        vector&lt;vector&lt;int&gt;&gt; res;
+        recurion(res, num, 0);
+        return res;
+    &#125;
+&#125;;</code></pre>
+
+<h2 id="BM56-有重复项数字的全排列"><a href="#BM56-有重复项数字的全排列" class="headerlink" title="BM56 有重复项数字的全排列"></a>BM56 有重复项数字的全排列</h2><pre class="language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    void recurion(vector&lt;vector&lt;int&gt;&gt;&amp; res,vector&lt;int&gt;&amp; num,int index)&#123;
+        if(index&#x3D;&#x3D;num.size()-1)
+            res.push_back(num);
+        else&#123;
+            for(int i&#x3D;index;i&lt;num.size();i++)&#123;
+                swap(num[i],num[index]);
+                recurion(res,num, index+1);&#x2F;&#x2F;每次递归index增加，避免重复排列
+                swap(num[i], num[index]);
+            &#125;
+        &#125;
+    &#125;
+    vector&lt;vector&lt;int&gt; &gt; permuteUnique(vector&lt;int&gt; &amp;num) &#123;
+        sort(num.begin(), num.end());
+        vector&lt;vector&lt;int&gt;&gt; res;
+        recurion(res,num,0);
+        sort(res.begin(), res.end());&#x2F;&#x2F;对结果进行排序，排序后进行去重操作，利用unique函数进行去重操作。
+        res.erase(unique(res.begin(), res.end()), res.end());
+        return res;
+    &#125;
+&#125;;</code></pre>
+
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>Lanlan</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://archer-lan.github.io/2022/03/26/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98-DAY8/" title="牛客刷题-DAY8">https://archer-lan.github.io/2022/03/26/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98-DAY8/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/03/23/MySql%E5%AD%A6%E4%B9%A0-%E5%BB%BA%E8%A1%A8/" rel="next" title="MySql学习-建表"><span class="post-nav-text">MySql学习-建表</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>要不要和我说些什么？</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备xxxxxxxx号</a></div><div class="copyright"><span>&copy; 2019 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Lanlan</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.0.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.7.0</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2019-02-14T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#6200ee" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4","5-12"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>
