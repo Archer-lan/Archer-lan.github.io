@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#6200ee"><meta name="author" content="Lanlan"><meta name="copyright" content="Lanlan"><meta name="generator" content="Hexo 6.0.0"><meta name="theme" content="hexo-theme-yun"><title>毕业设计数据库建表 | Blog of Lanlan</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/png" href="/bitbug_favicon.ico"><link rel="mask-icon" href="/bitbug_favicon.ico" color="#6200ee"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"archer-lan.github.io","root":"/","title":"蓝蓝的小站","version":"1.7.0","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="商品列表表名：commodity    商品ID 商品图片(唯一 不为空) 名称 描述 价格 类别（不为空） 库存 状态 商店ID（不为空）    com_id image_id com_name com_descrip com_price type_id com_num com_status store_id   int int varchar(255) varchar(255) varchar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="毕业设计数据库建表">
+<meta property="og:url" content="https://archer-lan.github.io/2022/04/18/%E5%BB%BA%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Blog of Lanlan">
+<meta property="og:description" content="商品列表表名：commodity    商品ID 商品图片(唯一 不为空) 名称 描述 价格 类别（不为空） 库存 状态 商店ID（不为空）    com_id image_id com_name com_descrip com_price type_id com_num com_status store_id   int int varchar(255) varchar(255) varchar">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-18T13:11:49.638Z">
+<meta property="article:modified_time" content="2022-04-18T13:11:26.140Z">
+<meta property="article:author" content="Lanlan">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Lanlan"><img width="96" loading="lazy" src="/images/avater.png" alt="Lanlan"><span class="site-author-status" title="天天开心">😭</span></a><div class="site-author-name"><a href="/about/">Lanlan</a></div><a class="site-name" href="/about/site.html">Blog of Lanlan</a><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">31</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">5</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=781251187&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Archer-lan" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:lan78125@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=280461298" title="网易云音乐" target="_blank" style="color:#C10D0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/20745958?spm_id_from=333.1007.0.0" title="哔哩哔哩动画" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%95%86%E5%93%81%E5%88%97%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text">商品列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E8%A1%A8"><span class="toc-number">2.</span> <span class="toc-text">图片表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%A1%A8"><span class="toc-number">3.</span> <span class="toc-text">类型表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A6%E5%8F%B7%E5%95%86%E5%BA%97%E8%A1%A8"><span class="toc-number">4.</span> <span class="toc-text">账号商店表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E8%A1%A8"><span class="toc-number">5.</span> <span class="toc-text">用户信息表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E6%B5%81%E4%BF%A1%E6%81%AF%E8%A1%A8"><span class="toc-number">6.</span> <span class="toc-text">物流信息表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A2%E5%8D%95%E4%BF%A1%E6%81%AF%E8%A1%A8"><span class="toc-number">7.</span> <span class="toc-text">订单信息表</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://Archer-lan.github.io/2022/04/18/%E5%BB%BA%E8%A1%A8/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Lanlan"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Blog of Lanlan"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">毕业设计数据库建表</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2022-04-18 21:11:49" itemprop="dateCreated datePublished" datetime="2022-04-18T21:11:49+08:00">2022-04-18</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E9%A1%B9%E7%9B%AE/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">项目</span></a></span></span></div><div class="post-author"><div class="author-avatar"><img src="https://www.gravatar.com/avatar/8d43d7964b8cab986fa862a4518075a2?s=20&amp;d=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2FYunYouJun%2Fcdn%2Fimg%2Favatar%2Fnone.jpg"></div><span class="author-name">Lanlan</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#6200ee;"><h2 id="商品列表"><a href="#商品列表" class="headerlink" title="商品列表"></a>商品列表</h2><p>表名：commodity</p>
+<table>
+<thead>
+<tr>
+<th>商品ID</th>
+<th>商品图片(唯一 不为空)</th>
+<th>名称</th>
+<th>描述</th>
+<th>价格</th>
+<th>类别（不为空）</th>
+<th>库存</th>
+<th>状态</th>
+<th>商店ID（不为空）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>com_id</td>
+<td>image_id</td>
+<td>com_name</td>
+<td>com_descrip</td>
+<td>com_price</td>
+<td>type_id</td>
+<td>com_num</td>
+<td>com_status</td>
+<td>store_id</td>
+</tr>
+<tr>
+<td>int</td>
+<td>int</td>
+<td>varchar(255)</td>
+<td>varchar(255)</td>
+<td>varchar(255)</td>
+<td>int</td>
+<td>int</td>
+<td>int</td>
+<td>int</td>
+</tr>
+</tbody></table>
+<p>主键：商品ID    com_id</p>
+<p>外键：商品图片    image_id</p>
+<p>​            类别    type_id</p>
+<p>​            商店ID    store_id</p>
+<p>商品状态：分为三种（0：在售，1：下架，2：删除）</p>
+<h2 id="图片表"><a href="#图片表" class="headerlink" title="图片表"></a>图片表</h2><p>表名：image</p>
+<table>
+<thead>
+<tr>
+<th>图片ID</th>
+<th>图片地址</th>
+<th>图片类型</th>
+<th>图片描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>image_id</td>
+<td>image_url</td>
+<td>image_type</td>
+<td>image_descrip</td>
+</tr>
+<tr>
+<td>int</td>
+<td>varchar(255)</td>
+<td>varchar(255)</td>
+<td>varchar(255)</td>
+</tr>
+</tbody></table>
+<p>主键：图片ID    image_id</p>
+<p>图片类型：按使用类型分类</p>
+<h2 id="类型表"><a href="#类型表" class="headerlink" title="类型表"></a>类型表</h2><p>表名：type</p>
+<table>
+<thead>
+<tr>
+<th>类型ID</th>
+<th>类型名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type_id</td>
+<td>type_name</td>
+</tr>
+<tr>
+<td>int</td>
+<td>varchar(255)</td>
+</tr>
+</tbody></table>
+<p>主键：类型ID    type_id</p>
+<p>类型名称：（此分类不分二级目录，只分一级分类）</p>
+<h2 id="账号商店表"><a href="#账号商店表" class="headerlink" title="账号商店表"></a>账号商店表</h2><p>表名：store</p>
+<table>
+<thead>
+<tr>
+<th>商店ID</th>
+<th>商店名称（唯一）</th>
+<th>商店头像（唯一）</th>
+<th>账号（唯一 不为空）</th>
+<th>手机号（唯一 不为空）</th>
+<th>密码（不为空）</th>
+<th>商店描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>store_id</td>
+<td>store_name</td>
+<td>image_id</td>
+<td>store_account</td>
+<td>store_phone</td>
+<td>store_pwd</td>
+<td>store_descrip</td>
+</tr>
+<tr>
+<td>int</td>
+<td>varchar(255)</td>
+<td>int</td>
+<td>varchar(45)</td>
+<td>varchar(11)</td>
+<td>varchar(45)</td>
+<td>varchar(255)</td>
+</tr>
+</tbody></table>
+<p>主键：商店ID    store_id</p>
+<p>外键：商店头像    image_id</p>
+<p>其中：账号、手机号、密码不为空</p>
+<h2 id="用户信息表"><a href="#用户信息表" class="headerlink" title="用户信息表"></a>用户信息表</h2><p>表名：userinfo</p>
+<table>
+<thead>
+<tr>
+<th>用户ID</th>
+<th>用户姓名（唯一）</th>
+<th>用户手机（唯一）</th>
+<th>用户地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>user_id</td>
+<td>user_name</td>
+<td>user_phone</td>
+<td>user_address</td>
+</tr>
+<tr>
+<td>int</td>
+<td>varchar(45)</td>
+<td>varchar(11)</td>
+<td>varchar(255)</td>
+</tr>
+</tbody></table>
+<p>主键：用户ID    user_id</p>
+<h2 id="物流信息表"><a href="#物流信息表" class="headerlink" title="物流信息表"></a>物流信息表</h2><p>表名：logistics</p>
+<table>
+<thead>
+<tr>
+<th>物流ID</th>
+<th>用户ID（不为空）</th>
+<th>发货日期</th>
+<th>到货日期</th>
+<th>物流状态</th>
+<th>商店ID（不为空）</th>
+<th>物流标签</th>
+<th>物流号（不为空）</th>
+<th>订单ID（不为空）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>logi_id</td>
+<td>user_id</td>
+<td>logi_makedate</td>
+<td>logi_compdate</td>
+<td>logi_status</td>
+<td>store_id</td>
+<td>logi_flag</td>
+<td>logi_numb</td>
+<td>orders_id</td>
+</tr>
+<tr>
+<td>int</td>
+<td>int</td>
+<td>varchar(45)</td>
+<td>varchar(45)</td>
+<td>int</td>
+<td>int</td>
+<td>int</td>
+<td>varchar(45)</td>
+<td>int</td>
+</tr>
+</tbody></table>
+<p>主键：物流ID    logi_id</p>
+<p>外键：用户ID    user_id</p>
+<p>​            商店ID    store_id</p>
+<p>​            订单ID    orders_id</p>
+<p>物流状态：0：未签收，1：已签收</p>
+<p>物流标签：0：未删除，1：已删除</p>
+<h2 id="订单信息表"><a href="#订单信息表" class="headerlink" title="订单信息表"></a>订单信息表</h2><p>表名：orders</p>
+<table>
+<thead>
+<tr>
+<th>订单ID</th>
+<th>订单编号（不为空）</th>
+<th>用户ID（不为空）</th>
+<th>商品ID（不为空）</th>
+<th>订单支付金额</th>
+<th>订单状态</th>
+<th>商店ID（不为空）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>orders_id</td>
+<td>orders_number</td>
+<td>user_id</td>
+<td>com_id</td>
+<td>orders_pay</td>
+<td>orders_status</td>
+<td>store_id</td>
+</tr>
+<tr>
+<td>int</td>
+<td>varchar(45)</td>
+<td>int</td>
+<td>int</td>
+<td>varchar(45)</td>
+<td>int</td>
+<td>int</td>
+</tr>
+</tbody></table>
+<p>主键：订单ID    orders_id</p>
+<p>外键：用户ID    user_id</p>
+<p>​            商品ID    com_id</p>
+<p>​            商店ID    store_id</p>
+<p>订单状态：0：待支付，1：已支付</p>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>Lanlan</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://archer-lan.github.io/2022/04/18/%E5%BB%BA%E8%A1%A8/" title="毕业设计数据库建表">https://archer-lan.github.io/2022/04/18/%E5%BB%BA%E8%A1%A8/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2022/04/10/%E4%BB%BF%E6%98%9F%E5%B7%B4%E5%85%8B%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="next" title="实训设计-仿星巴克小程序"><span class="post-nav-text">实训设计-仿星巴克小程序</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>要不要和我说些什么？</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备xxxxxxxx号</a></div><div class="copyright"><span>&copy; 2019 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Lanlan</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.0.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.7.0</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2019-02-14T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#6200ee" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4","5-12"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>
