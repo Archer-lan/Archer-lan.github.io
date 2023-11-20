@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#6200ee"><meta name="author" content="Lanlan"><meta name="copyright" content="Lanlan"><meta name="generator" content="Hexo 6.0.0"><meta name="theme" content="hexo-theme-yun"><title>GLTF文件注解 | Blog of Lanlan</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/png" href="/bitbug_favicon.ico"><link rel="mask-icon" href="/bitbug_favicon.ico" color="#6200ee"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"archer-lan.github.io","root":"/","title":"蓝蓝的小站","version":"1.7.0","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="GLTF文件注解accessors访问器，用于描述二进制数据缓冲区中的数据，包括顶点坐标、法线、纹理坐标等。它们是将二进制数据转换成有意义的顶点属性或其它数据的关键组件。 1.bufferView 指示这个accessor所用的bufferView的索引。bufferView定义了从缓冲区读取数据的规则，包括数据的字节偏移、长度等信息。 2.byteOffset 指示从bufferView的起始位">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GLTF文件注解">
+<meta property="og:url" content="https://archer-lan.github.io/2023/11/20/GLTF%E6%96%87%E4%BB%B6%E6%B3%A8%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Blog of Lanlan">
+<meta property="og:description" content="GLTF文件注解accessors访问器，用于描述二进制数据缓冲区中的数据，包括顶点坐标、法线、纹理坐标等。它们是将二进制数据转换成有意义的顶点属性或其它数据的关键组件。 1.bufferView 指示这个accessor所用的bufferView的索引。bufferView定义了从缓冲区读取数据的规则，包括数据的字节偏移、长度等信息。 2.byteOffset 指示从bufferView的起始位">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-20T05:11:39.177Z">
+<meta property="article:modified_time" content="2023-11-17T14:02:52.000Z">
+<meta property="article:author" content="Lanlan">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Lanlan"><img width="96" loading="lazy" src="/images/avater.png" alt="Lanlan"><span class="site-author-status" title="天天开心">😭</span></a><div class="site-author-name"><a href="/about/">Lanlan</a></div><a class="site-name" href="/about/site.html">Blog of Lanlan</a><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">116</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">15</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=781251187&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Archer-lan" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:lan78125@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=280461298" title="网易云音乐" target="_blank" style="color:#C10D0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/20745958?spm_id_from=333.1007.0.0" title="哔哩哔哩动画" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#GLTF%E6%96%87%E4%BB%B6%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">GLTF文件注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#accessors"><span class="toc-number">1.1.</span> <span class="toc-text">accessors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bufferViews"><span class="toc-number">1.2.</span> <span class="toc-text">bufferViews</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#buffers"><span class="toc-number">1.3.</span> <span class="toc-text">buffers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#extensionUsed"><span class="toc-number">1.4.</span> <span class="toc-text">extensionUsed</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#images"><span class="toc-number">1.5.</span> <span class="toc-text">images</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#materials"><span class="toc-number">1.6.</span> <span class="toc-text">materials</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#meshes"><span class="toc-number">1.7.</span> <span class="toc-text">meshes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nodes"><span class="toc-number">1.8.</span> <span class="toc-text">nodes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#samplers"><span class="toc-number">1.9.</span> <span class="toc-text">samplers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scenes"><span class="toc-number">1.10.</span> <span class="toc-text">scenes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#textures"><span class="toc-number">1.11.</span> <span class="toc-text">textures</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://Archer-lan.github.io/2023/11/20/GLTF%E6%96%87%E4%BB%B6%E6%B3%A8%E8%A7%A3/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Lanlan"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Blog of Lanlan"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">GLTF文件注解</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2023-11-20 13:11:39" itemprop="dateCreated datePublished" datetime="2023-11-20T13:11:39+08:00">2023-11-20</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2023-11-17 22:02:52" itemprop="dateModified" datetime="2023-11-17T22:02:52+08:00">2023-11-17</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Web3D%E6%96%87%E4%BB%B6%E5%AD%A6%E4%B9%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Web3D文件学习</span></a></span></span></div><div class="post-author"><div class="author-avatar"><img src="https://www.gravatar.com/avatar/8d43d7964b8cab986fa862a4518075a2?s=20&amp;d=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2FYunYouJun%2Fcdn%2Fimg%2Favatar%2Fnone.jpg"></div><span class="author-name">Lanlan</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#6200ee;"><h3 id="GLTF文件注解"><a href="#GLTF文件注解" class="headerlink" title="GLTF文件注解"></a>GLTF文件注解</h3><h4 id="accessors"><a href="#accessors" class="headerlink" title="accessors"></a>accessors</h4><p>访问器，用于描述二进制数据缓冲区中的数据，包括顶点坐标、法线、纹理坐标等。它们是将二进制数据转换成有意义的顶点属性或其它数据的关键组件。</p>
+<p>1.bufferView</p>
+<p>指示这个<code>accessor</code>所用的<code>bufferView</code>的索引。<code>bufferView</code>定义了从缓冲区读取数据的规则，包括数据的字节偏移、长度等信息。</p>
+<p>2.byteOffset</p>
+<p>指示从<code>bufferView</code>的起始位置开始的字节偏移量。定义了在<code>bufferView</code>中的数据从哪里开始。</p>
+<p>3.componentType</p>
+<p>表示数据的二进制数据类型。它的值是一个整数，对应于不同的数据类型，如：</p>
+<ul>
+<li><strong>5120</strong>（<code>BYTE</code>）：表示有符号字节数据。</li>
+<li><strong>5121</strong>（<code>UNSIGNED_BYTE</code>）：表示无符号字节数据。</li>
+<li><strong>5122</strong>（<code>SHORT</code>）：表示有符号短整型数据。</li>
+<li><strong>5123</strong>（<code>UNSIGNED_SHORT</code>）：表示无符号短整型数据。</li>
+<li><strong>5124</strong>（<code>INT</code>）：表示有符号整型数据。</li>
+<li><strong>5125</strong>（<code>UNSIGNED_INT</code>）：表示无符号整型数据。</li>
+<li><strong>5126</strong>（<code>FLOAT</code>）：表示浮点型数据。</li>
+</ul>
+<p>4.count</p>
+<p>指示<code>accessor</code>中包含的数据元素的数量。</p>
+<p>5.type</p>
+<p>描述数据的类型，有：</p>
+<p><code>SCALAR</code>（标量，表示单个数值）</p>
+<p><code>VEC2</code>（二维向量）</p>
+<p><code>VEC3</code>（三维向量）</p>
+<p><code>VEC4</code>（四维向量）</p>
+<p>它决定了如何解释数据的每个元素。</p>
+<p>6.max和min</p>
+<p>可选属性，指示<code>accessor</code>中数据的最大值和最小值。这些值可以用于确定数据的范围，对于辅助渲染和计算来说非常有用。</p>
+<h4 id="bufferViews"><a href="#bufferViews" class="headerlink" title="bufferViews"></a>bufferViews</h4><p>用于描述一个二进制数据缓冲区(<code>buffers</code>）的一个视图。它定义了如何从缓冲区中读取数据，包括字节偏移、字节长度、数据布局等信息。</p>
+<p><code>buffersViews</code>是将二进制数据组织成更有意义的数据块的关键部分，通常用于表示模型的几何数据、纹理图像和其它数据。</p>
+<p>1.buffer</p>
+<p>指示该<code>bufferView</code>所关联的二进制数据缓冲区的索引。这个索引对应于gltf文件中的<code>buffers</code>数组，用于确定所使用的缓冲区。</p>
+<p>2.byteOffset</p>
+<p>指示从关联的缓冲区的起始位置开始的字节偏移量。它定义了<code>bufferview</code>中的数据从缓冲区的哪个位置开始。</p>
+<p>3.byteLength</p>
+<p>表示这个<code>bufferView</code>中数据的字节长度。有多少字节的数据包含在视图中。</p>
+<p>4.byteStride</p>
+<p>可选的属性，表示每个元素的字节步幅。这在处理包含多个元素的数据结构时非常有用，如顶点属性数组或纹理图像数据。</p>
+<p>5.target</p>
+<p>可选的属性，指示这个<code>bufferView</code>的预期用途。它通常用于表示数据的用于，例如顶点数据、索引数据等。</p>
+<p>值包含：</p>
+<ul>
+<li><strong>34962</strong>：<code>ARRAY_BUFFER</code>，表示这个 <code>bufferView</code> 包含顶点数据，通常用于描述顶点坐标、法线、纹理坐标等。</li>
+<li><strong>34963</strong>：<code>ELEMENT_ARRAY_BUFFER</code>，表示这个 <code>bufferView</code> 包含索引数据，通常用于构建三角形或其他几何体的面。</li>
+</ul>
+<h4 id="buffers"><a href="#buffers" class="headerlink" title="buffers"></a>buffers</h4><p>用于存储二进制数据的缓冲区，这些数据通常包括模型的几何数据、纹理图像、声音、动画等。</p>
+<p>1.byteLength</p>
+<p>表示缓冲区的总字节长度。告诉解析器有多少字节的数据存储在这个缓冲区中。</p>
+<p>2.uri</p>
+<p>可选的属性，表示缓冲区数据的URI，通常是相对或绝对文件路径。这可以用于引用外部的二进制数据文件，也可以是嵌入在GLTF文件中的数据的Base64编码。</p>
+<p>3.name</p>
+<p>可选的属性，为缓冲区提高一个描述性的名称或标识符。</p>
+<p>4.mimeType</p>
+<p>可选的属性，表示缓冲区数据的MIME类型，通常用于指示数据的类型</p>
+<h4 id="extensionUsed"><a href="#extensionUsed" class="headerlink" title="extensionUsed"></a>extensionUsed</h4><p>一个字符串数组，用于指示该文件使用了哪些扩展。</p>
+<h4 id="images"><a href="#images" class="headerlink" title="images"></a>images</h4><p>表示图像资源，通常是纹理图像，这些图像可以用于贴图、材质、环境贴图等渲染操作。</p>
+<p>1.uri</p>
+<p>图像资源等URI，通常是相对或绝对文件路径。这个URI可以指向包含图像数据的外部文件，也可以包含数据的Base64编码。</p>
+<p>2.bufferView</p>
+<p>可选的属性，指示包含图像数据的<code>bufferView</code>的索引，这允许图像数据与gltf文件的其它部分共享相同的二进制缓冲区。</p>
+<h4 id="materials"><a href="#materials" class="headerlink" title="materials"></a>materials</h4><p>用于描述模型的外观和渲染属性。材质定义了模型表面的颜色、反射、透明度、金属度、粗糙度等属性。决定了模型在渲染时的视觉效果。</p>
+<p>1.pbrMetallicRoughness</p>
+<p>这是一个常见的材质属性，用于描述金属度(metallic)和粗糙度(roughness)的材质模型。它包括以下子属性：</p>
+<ul>
+<li><code>baseColorFactor</code>：基础颜色因子，用于表示材质的颜色。</li>
+<li><code>baseColorTexture</code>：基础颜色纹理，用于在模型表面贴图颜色。</li>
+<li><code>metallicFactor</code>：金属度因子，指示材质的金属程度。</li>
+<li><code>roughnessFactor</code>：粗糙度因子，指示材质的表面粗糙度。</li>
+<li><code>metallicRoughnessTexture</code>：金属粗糙度纹理，用于在模型表面贴图金属度和粗糙度。</li>
+</ul>
+<p>2.normalTexture</p>
+<p>法线纹理，用于模拟表面的凹凸效果，增强模型的细节。</p>
+<p>3.occlusionTexture</p>
+<p>遮挡纹理，用于指示哪些区域在渲染中应该更暗或更亮，通常用于增加遮挡效果。</p>
+<p>4.emissiveFactor</p>
+<p>自发光因子，表示材质是否自发光以及自发光的颜色</p>
+<p>5.emissiveTexture</p>
+<p>自发光纹理，用于模拟自发光效果。</p>
+<p>6.alphaMode</p>
+<p>alpha模式，指示如何处理材质的透明度。可以是<code>OPAQUE</code>(不透明)、<code>MASK</code>(遮罩)或<code>BLEND</code>(混合)</p>
+<p>7.alphaCutoff</p>
+<p>用于遮罩模式的alpha阈值，决定像素是完全不透明还是完全透明。</p>
+<p>8.doubleSided</p>
+<p>一个布尔值，指示材质是否是双面渲染，即是否在模型的两侧都显示。</p>
+<p>9.name</p>
+<p>可选的属性，为材质提供一个描述性的名称或标识符，以帮助开发人员和用户理解材质的用途或内容。</p>
+<h4 id="meshes"><a href="#meshes" class="headerlink" title="meshes"></a>meshes</h4><p>用于描述三维模型的几何结构。一个 <code>mesh</code> 对象通常包含一个或多个 <code>primitives</code>（原始体），每个 <code>primitive</code> 表示模型的一个离散部分，如一个三角形网格或一个几何体。<code>meshes</code> 定义了模型的物理形状，以及如何呈现这些形状。</p>
+<ol>
+<li><p><strong>primitives</strong>：这是一个包含一个或多个 <code>primitive</code> 的数组，每个 <code>primitive</code> 定义了一个几何图形或子部分，如一个三角形网格或一个几何体。每个 <code>primitive</code> 包括了以下属性：</p>
+<ul>
+<li><code>attributes</code>：指示几何体的顶点属性，如位置、法线、纹理坐标等。</li>
+<li><code>indices</code>：可选的属性，指示定义几何体的索引，用于构建三角形或其他多边形。</li>
+<li><code>material</code>：指示应用于几何体的材质。</li>
+</ul>
+</li>
+<li><p><strong>name</strong>：可选的属性，为 <code>mesh</code> 提供一个描述性的名称或标识符，以帮助开发人员和用户理解模型的内容或用途。</p>
+<p><em>mode</em>：</p>
+<ol>
+<li><strong><code>POINTS</code>（值为0）</strong>：每个顶点都被视为一个单独的点，不会连接成线段或面。这是最简单的绘制模式，用于绘制散点或粒子等。</li>
+<li><strong><code>LINES</code>（值为1）</strong>：每两个顶点之间都会绘制一条线段。相邻的顶点会被连接成线段。</li>
+<li><strong><code>LINE_LOOP</code>（值为2）</strong>：绘制一个闭合的线环，最后一个顶点和第一个顶点会连接成一条线段。</li>
+<li><strong><code>LINE_STRIP</code>（值为3）</strong>：绘制一系列相邻的线段，每个线段由两个相邻的顶点定义。线段之间不会重复使用顶点。</li>
+<li><strong><code>TRIANGLES</code>（值为4）</strong>：每三个顶点会组成一个三角形，并绘制这些三角形。这是最常见的绘制模式，用于绘制复杂的三维几何体。</li>
+<li><strong><code>TRIANGLE_STRIP</code>（值为5）</strong>：从第三个顶点开始，每个顶点都与前两个顶点组成一个三角形，形成一个连续的三角形带。</li>
+<li><strong><code>TRIANGLE_FAN</code>（值为6）</strong>：第一个顶点与后续的每一对相邻顶点一起组成一个三角形，形成一个扇形的三角形序列。</li>
+</ol>
+</li>
+</ol>
+<h4 id="nodes"><a href="#nodes" class="headerlink" title="nodes"></a>nodes</h4><p>描述场景中的节点或对象的层次结构。用于构建三维场景，其中包括模型、相机、灯光等各种对象，并定义了这些对象之间的父子关系。从而构建整个场景的层次结构。</p>
+<ol>
+<li><strong>name</strong>：可选的属性，为节点提供一个描述性的名称或标识符，以帮助开发人员和用户理解节点的内容或用途。</li>
+<li><strong>mesh</strong>：可选的属性，指示节点关联的 <code>mesh</code>（几何体或模型）。这表示节点是一个包含模型的对象。</li>
+<li><strong>camera</strong>：可选的属性，指示节点关联的相机。这表示节点是一个相机的位置和方向。</li>
+<li><strong>children</strong>：可选的属性，是一个包含节点索引的数组，指示了与当前节点关联的子节点。这定义了节点的层次结构。</li>
+<li><strong>matrix</strong>：可选的属性，表示节点的变换矩阵，用于将节点的位置、旋转和缩放应用于其子节点。这可以用来实现节点的局部变换。</li>
+<li><strong>translation</strong>、<strong>rotation</strong>、<strong>scale</strong>：这些可选的属性分别表示节点的平移、旋转和缩放，用于将节点的变换应用于其子节点。</li>
+<li><strong>skin</strong>：可选的属性，指示节点关联的皮肤。这通常用于表示与骨骼动画相关的节点。</li>
+<li><strong>weights</strong>：可选的属性，表示节点的权重。这通常与节点的模型或几何体一起使用，用于定义节点的变形或形状关键帧动画。</li>
+</ol>
+<h4 id="samplers"><a href="#samplers" class="headerlink" title="samplers"></a>samplers</h4><p>用于定义纹理采样器，这些采样器控制了纹理图像在渲染中如何采样和呈现。纹理采样器定义了如何处理纹理坐标，以便正确映射纹理到模型表面。</p>
+<ol>
+<li><strong>magFilter</strong>：纹理的放大过滤器，定义了当纹理被放大时如何处理像素。常见的选项包括 <code>NEAREST</code>（最近邻插值）和 <code>LINEAR</code>（双线性插值）。</li>
+<li><strong>minFilter</strong>：纹理的缩小过滤器，定义了当纹理被缩小时如何处理像素。常见的选项包括 <code>NEAREST</code> 和 <code>LINEAR</code>，还有 <code>NEAREST_MIPMAP_NEAREST</code>、<code>LINEAR_MIPMAP_NEAREST</code>、<code>NEAREST_MIPMAP_LINEAR</code>、<code>LINEAR_MIPMAP_LINEAR</code> 等。</li>
+<li><strong>wrapS</strong> 和 <strong>wrapT</strong>：纹理坐标的水平和垂直包裹方式。它们定义了当纹理坐标超出 [0,1] 范围时如何处理。常见的选项包括 <code>CLAMP_TO_EDGE</code>（夹取到边缘）、<code>REPEAT</code>（重复平铺）、<code>MIRRORED_REPEAT</code>（镜像平铺）等。</li>
+<li><strong>name</strong>：可选的属性，为纹理采样器提供一个描述性的名称或标识符，以帮助开发人员和用户理解采样器的用途或设置。</li>
+<li><strong>magFilter</strong> 和 <strong>minFilter</strong> 中的数字：<ul>
+<li><code>9728</code> 对应 <code>NEAREST</code>，表示最近邻插值。</li>
+<li><code>9729</code> 对应 <code>LINEAR</code>，表示双线性插值。</li>
+<li><code>9984</code> 对应 <code>NEAREST_MIPMAP_NEAREST</code>，表示最近邻插值和最近邻的 mipmap 等级插值。</li>
+<li><code>9985</code> 对应 <code>LINEAR_MIPMAP_NEAREST</code>，表示双线性插值和最近邻的 mipmap 等级插值。</li>
+<li><code>9986</code> 对应 <code>NEAREST_MIPMAP_LINEAR</code>，表示最近邻插值和线性的 mipmap 等级插值。</li>
+<li><code>9987</code> 对应 <code>LINEAR_MIPMAP_LINEAR</code>，表示双线性插值和线性的 mipmap 等级插值。</li>
+</ul>
+</li>
+<li><strong>wrapS</strong> 和 <strong>wrapT</strong> 中的数字：<ul>
+<li><code>33071</code> 对应 <code>CLAMP_TO_EDGE</code>，表示纹理坐标被夹取到边缘。</li>
+<li><code>10497</code> 对应 <code>REPEAT</code>，表示纹理坐标在 [0,1] 范围内重复平铺。</li>
+<li><code>33648</code> 对应 <code>MIRRORED_REPEAT</code>，表示纹理坐标在 [0,1] 范围内镜像平铺。</li>
+</ul>
+</li>
+</ol>
+<h4 id="scenes"><a href="#scenes" class="headerlink" title="scenes"></a>scenes</h4><p>用于定义和描述场景图的不同视图或配置。每个scene表示一个具体的渲染场景。可以包含多个节点<code>nodes</code>，这些节点构成了场景的层次结构和内容。</p>
+<ol>
+<li><strong>name</strong>：可选的属性，为场景提供一个描述性的名称或标识符，以帮助开发人员和用户理解场景的内容或用途。</li>
+<li><strong>nodes</strong>：这是一个包含节点索引的数组，定义了场景中包含的节点。每个节点索引对应于 <code>nodes</code> 数组中的一个节点，这些节点可以是模型、相机、灯光或其他对象。</li>
+</ol>
+<h4 id="textures"><a href="#textures" class="headerlink" title="textures"></a>textures</h4><p>用于描述模型或材质使用的纹理图像。纹理图像通常用于贴图，以在模型的表面上添加颜色、纹理、光照等信息。从而实现更真实的渲染效果。</p>
+<ol>
+<li><strong>sampler</strong>：指示纹理采样器（sampler）的索引，它定义了纹理如何采样和呈现。纹理采样器包括对纹理的过滤、包裹方式等设置。</li>
+<li><strong>source</strong>：指示纹理图像数据的索引，通常是指向包含实际图像数据的 <code>images</code> 数组的索引。</li>
+<li><strong>name</strong>：可选的属性，为纹理提供一个描述性的名称或标识符，以帮助开发人员和用户理解纹理的用途或内容。</li>
+</ol>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>Lanlan</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://archer-lan.github.io/2023/11/20/GLTF%E6%96%87%E4%BB%B6%E6%B3%A8%E8%A7%A3/" title="GLTF文件注解">https://archer-lan.github.io/2023/11/20/GLTF%E6%96%87%E4%BB%B6%E6%B3%A8%E8%A7%A3/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2023/11/20/GLSL%20ES%E7%9D%80%E8%89%B2%E5%99%A8%E8%AF%AD%E8%A8%80-%E8%AF%AD%E5%8F%A5/" rel="prev" title="GLSL ES着色器语言-语句"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">GLSL ES着色器语言-语句</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2023/11/20/GLSL%20ES%E7%9D%80%E8%89%B2%E5%99%A8%E8%AF%AD%E8%A8%80-%E4%B8%89%E7%A7%8D%E5%8F%98%E9%87%8F/" rel="next" title="GLSL ES着色器语言-三种变量"><span class="post-nav-text">GLSL ES着色器语言-三种变量</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备xxxxxxxx号</a></div><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Lanlan</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.0.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.7.0</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2019-02-14T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#6200ee" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4","5-12"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>

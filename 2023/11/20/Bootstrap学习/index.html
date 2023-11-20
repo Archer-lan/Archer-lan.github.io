@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#6200ee"><meta name="author" content="Lanlan"><meta name="copyright" content="Lanlan"><meta name="generator" content="Hexo 6.0.0"><meta name="theme" content="hexo-theme-yun"><title>Bootstrap基本语法 | Blog of Lanlan</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/png" href="/bitbug_favicon.ico"><link rel="mask-icon" href="/bitbug_favicon.ico" color="#6200ee"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"archer-lan.github.io","root":"/","title":"蓝蓝的小站","version":"1.7.0","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="Bootstrap学习v3版本下载bootstrap源码，将dist目录拷贝到项目文件中，重新命名。 创建模板页面代码 &lt;!doctype html&gt; &lt;html lang&#x3D;&quot;zh-CN&quot;&gt; &lt;head&gt;     &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;     &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bootstrap基本语法">
+<meta property="og:url" content="https://archer-lan.github.io/2023/11/20/Bootstrap%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Blog of Lanlan">
+<meta property="og:description" content="Bootstrap学习v3版本下载bootstrap源码，将dist目录拷贝到项目文件中，重新命名。 创建模板页面代码 &lt;!doctype html&gt; &lt;html lang&#x3D;&quot;zh-CN&quot;&gt; &lt;head&gt;     &lt;meta charset&#x3D;&quot;utf-8&quot;&gt;     &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/78125/AppData/Roaming/Typora/typora-user-images/image-20220912143815302.png">
+<meta property="og:image" content="c:/Users/78125/AppData/Roaming/Typora/typora-user-images/image-20220912143856665.png">
+<meta property="og:image" content="c:/Users/78125/AppData/Roaming/Typora/typora-user-images/image-20220912145336194.png">
+<meta property="article:published_time" content="2023-11-20T05:11:39.142Z">
+<meta property="article:modified_time" content="2023-11-20T05:11:15.234Z">
+<meta property="article:author" content="Lanlan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/78125/AppData/Roaming/Typora/typora-user-images/image-20220912143815302.png"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Lanlan"><img width="96" loading="lazy" src="/images/avater.png" alt="Lanlan"><span class="site-author-status" title="天天开心">😭</span></a><div class="site-author-name"><a href="/about/">Lanlan</a></div><a class="site-name" href="/about/site.html">Blog of Lanlan</a><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">116</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">15</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=781251187&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Archer-lan" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:lan78125@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=280461298" title="网易云音乐" target="_blank" style="color:#C10D0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/20745958?spm_id_from=333.1007.0.0" title="哔哩哔哩动画" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Bootstrap%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">Bootstrap学习</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#v3%E7%89%88%E6%9C%AC"><span class="toc-number">1.0.1.</span> <span class="toc-text">v3版本</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%83%E5%B1%80%E5%AE%B9%E5%99%A8%E5%92%8C%E6%A0%85%E6%A0%BC%E7%BD%91%E6%A0%BC%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.</span> <span class="toc-text">布局容器和栅格网格系统</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%83%E5%B1%80%E5%AE%B9%E5%99%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">布局容器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%85%E6%A0%BC%E7%BD%91%E6%A0%BC%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.2.</span> <span class="toc-text">栅格网格系统</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%97%E5%81%8F%E7%A7%BB"><span class="toc-number">1.1.3.</span> <span class="toc-text">列偏移</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%97%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.4.</span> <span class="toc-text">列排序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%97%E5%B5%8C%E5%A5%97"><span class="toc-number">1.1.5.</span> <span class="toc-text">列嵌套</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">常用样式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8E%92%E7%89%88"><span class="toc-number">1.2.1.</span> <span class="toc-text">排版</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A0%87%E9%A2%98"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">标题</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number"></span> <span class="toc-text">到，只不过bootstrap覆盖了其默认的样式，使用其在浏览器下显示的效果一样。为了让非标题元素和标题使用相同的样式，还特意定义了.h1-.h6的六个类名。同时后面可以紧跟着一行小的副标题或使用.small
+&lt;div class&#x3D;&quot;container&quot;&gt;
+    &lt;h1&gt;这是一个一级标题&lt;small&gt;这是一个副标题&lt;&#x2F;small&gt;&lt;&#x2F;h1&gt;
+    &lt;div class&#x3D;&quot;h1&quot;&gt;这是一个一级标题&lt;span class&#x3D;&quot;small&quot;&gt;这是一个副标题&lt;&#x2F;span&gt;&lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+
+效果保持一致
+段落通过.lead来突出强调内容（其作用就是增大文本字号，加粗文本，而且对行高和margin也做相应的处理）。可以使用以下标签给文本做突出样式处理：
+:小号字
+:加粗
+:斜体
+&lt;div class&#x3D;&quot;col-md-12&quot;&gt;
+    &lt;p class&#x3D;&quot;lead&quot;&gt;&lt;small&gt;这是一个&lt;&#x2F;small&gt;&lt;b&gt;测&lt;&#x2F;b&gt;&lt;i&gt;试&lt;&#x2F;i&gt;段落&lt;em&gt;的&lt;&#x2F;em&gt;&lt;strong&gt;句子&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+
+强调通过颜色来表示强调
+.text-muted 提示，使用浅灰色（#999）
+.text-primary 主要，使用蓝色（#428bca）
+.text-success 成功，使用浅绿色（#3c763d）
+.text-info 通知信息，使用浅蓝色（#31708f）
+.text-warning 警告，使用黄色（#8a6d3b）
+.text-danger 危险，使用褐色（#a94442）
+&lt;div class&#x3D;&quot;col-md-12&quot;&gt;
+    &lt;div class&#x3D;&quot;text-muted&quot;&gt;提示效果&lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;text-primary&quot;&gt;主要效果&lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;text-success&quot;&gt;成功效果&lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;text-info&quot;&gt;信息效果&lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;text-warning&quot;&gt;警告效果&lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;text-danger&quot;&gt;危险效果&lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+
+对齐效果为了简化操作，bootstrap通过定义四个类名来控制文本的对齐风格：.text-left左对齐、.text-center居中对齐、.text-right右对齐、.text-justify两端对齐
+列表去点列表class&#x3D;&quot;list-unstyled&quot;
+&lt;!--去点列表--&gt;
+          &lt;ul class&#x3D;&quot;list-unstyled&quot;&gt;
+              &lt;li&gt;无序列表1&lt;&#x2F;li&gt;
+              &lt;li&gt;无序列表2&lt;&#x2F;li&gt;
+          &lt;&#x2F;ul&gt;
+
+内联列表class&#x3D;&quot;list-inline&quot;
+  &lt;!--内联列表--&gt;
+&lt;ul class&#x3D;&quot;list-inline&quot;&gt;
+    &lt;li&gt;首页&lt;&#x2F;li&gt;
+    &lt;li&gt;多选&lt;&#x2F;li&gt;
+    &lt;li&gt;次选&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+
+定义列表为标题
+
+为内容
+
+&lt;!--定义列表--&gt;
+&lt;dl class&#x3D;&quot;dl-horizontal&quot;&gt;
+    &lt;dt&gt;这是一个标题啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊&lt;&#x2F;dt&gt;
+    &lt;dd&gt;这是一个内容&lt;&#x2F;dd&gt;
+    &lt;dd&gt;如果标题超过了160px的宽度的话，则会自动加3个点进行省略。&lt;&#x2F;dd&gt;
+&lt;&#x2F;dl&gt;
+
+代码bootstrap提供了三种代码风格：
+
+使用来显示单行内联代码
+
+使用来显示多行块代码
+样式：pre-scrollable（height,max-height高度固定，为340px，超过存在滚动条）
+3.使用来显示用户输入代码，如快捷键。
+
+
+表格bootstrap为表格提供了1种基础样式和4种附加样式以及一个支持响应式的表格。在使用bootstrap的表格过程中，只需要添加对应的类名就可以得到不同的表格风格。
+基础样式.table 基础表格
+附加样式.table-striped 斑马线表格
+.table-bordered 带边框的表格
+.table-hover 鼠标悬停高亮的表格
+.table-conensed 紧凑型表格，单元格没内距或者内距较其他表格的内距小。
+tr、th、td样式提供了五种不同的类名，每中类名控制了行的不同背景颜色
+.active 将悬停的颜色应用在行或者单元格上
+.sucess 表示成功的操作
+.info 表示信息变化的操作
+.warning 表示一个警告的操作
+.danger 表示一个危险的操作
+&lt;!--表格--&gt;
+&lt;div class&#x3D;&quot;col-md-12&quot;&gt;
+    &lt;table class&#x3D;&quot;table table-bordered table-hover&quot;&gt;
+        &lt;tr class&#x3D;&quot;active&quot;&gt;
+            &lt;th&gt;JavaSE&lt;&#x2F;th&gt;
+            &lt;th&gt;数据库&lt;&#x2F;th&gt;
+        &lt;&#x2F;tr&gt;
+        &lt;tr class&#x3D;&quot;danger&quot;&gt;
+            &lt;td&gt;面向对象&lt;&#x2F;td&gt;
+            &lt;td&gt;oracle&lt;&#x2F;td&gt;
+        &lt;&#x2F;tr&gt;
+        &lt;tr class&#x3D;&quot;success&quot;&gt;
+            &lt;td&gt;数组&lt;&#x2F;td&gt;
+            &lt;td&gt;mysql&lt;&#x2F;td&gt;
+        &lt;&#x2F;tr&gt;
+    &lt;&#x2F;table&gt;
+&lt;&#x2F;div&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link"><span class="toc-number">0.0.0.1.</span> <span class="toc-text">，只不过bootstrap覆盖了其默认的样式，使用其在浏览器下显示的效果一样。为了让非标题元素和标题使用相同的样式，还特意定义了.h1-.h6的六个类名。同时后面可以紧跟着一行小的副标题或使用.small
+&lt;div class&#x3D;&quot;container&quot;&gt;
+    &lt;h1&gt;这是一个一级标题&lt;small&gt;这是一个副标题&lt;&#x2F;small&gt;&lt;&#x2F;h1&gt;
+    &lt;div class&#x3D;&quot;h1&quot;&gt;这是一个一级标题&lt;span class&#x3D;&quot;small&quot;&gt;这是一个副标题&lt;&#x2F;span&gt;&lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+
+效果保持一致
+段落通过.lead来突出强调内容（其作用就是增大文本字号，加粗文本，而且对行高和margin也做相应的处理）。可以使用以下标签给文本做突出样式处理：
+:小号字
+:加粗
+:斜体
+&lt;div class&#x3D;&quot;col-md-12&quot;&gt;
+    &lt;p class&#x3D;&quot;lead&quot;&gt;&lt;small&gt;这是一个&lt;&#x2F;small&gt;&lt;b&gt;测&lt;&#x2F;b&gt;&lt;i&gt;试&lt;&#x2F;i&gt;段落&lt;em&gt;的&lt;&#x2F;em&gt;&lt;strong&gt;句子&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+
+强调通过颜色来表示强调
+.text-muted 提示，使用浅灰色（#999）
+.text-primary 主要，使用蓝色（#428bca）
+.text-success 成功，使用浅绿色（#3c763d）
+.text-info 通知信息，使用浅蓝色（#31708f）
+.text-warning 警告，使用黄色（#8a6d3b）
+.text-danger 危险，使用褐色（#a94442）
+&lt;div class&#x3D;&quot;col-md-12&quot;&gt;
+    &lt;div class&#x3D;&quot;text-muted&quot;&gt;提示效果&lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;text-primary&quot;&gt;主要效果&lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;text-success&quot;&gt;成功效果&lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;text-info&quot;&gt;信息效果&lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;text-warning&quot;&gt;警告效果&lt;&#x2F;div&gt;
+    &lt;div class&#x3D;&quot;text-danger&quot;&gt;危险效果&lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+
+对齐效果为了简化操作，bootstrap通过定义四个类名来控制文本的对齐风格：.text-left左对齐、.text-center居中对齐、.text-right右对齐、.text-justify两端对齐
+列表去点列表class&#x3D;&quot;list-unstyled&quot;
+&lt;!--去点列表--&gt;
+          &lt;ul class&#x3D;&quot;list-unstyled&quot;&gt;
+              &lt;li&gt;无序列表1&lt;&#x2F;li&gt;
+              &lt;li&gt;无序列表2&lt;&#x2F;li&gt;
+          &lt;&#x2F;ul&gt;
+
+内联列表class&#x3D;&quot;list-inline&quot;
+  &lt;!--内联列表--&gt;
+&lt;ul class&#x3D;&quot;list-inline&quot;&gt;
+    &lt;li&gt;首页&lt;&#x2F;li&gt;
+    &lt;li&gt;多选&lt;&#x2F;li&gt;
+    &lt;li&gt;次选&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+
+定义列表为标题
+
+为内容
+
+&lt;!--定义列表--&gt;
+&lt;dl class&#x3D;&quot;dl-horizontal&quot;&gt;
+    &lt;dt&gt;这是一个标题啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊&lt;&#x2F;dt&gt;
+    &lt;dd&gt;这是一个内容&lt;&#x2F;dd&gt;
+    &lt;dd&gt;如果标题超过了160px的宽度的话，则会自动加3个点进行省略。&lt;&#x2F;dd&gt;
+&lt;&#x2F;dl&gt;
+
+代码bootstrap提供了三种代码风格：
+
+使用来显示单行内联代码
+
+使用来显示多行块代码
+样式：pre-scrollable（height,max-height高度固定，为340px，超过存在滚动条）
+3.使用来显示用户输入代码，如快捷键。
+
+
+表格bootstrap为表格提供了1种基础样式和4种附加样式以及一个支持响应式的表格。在使用bootstrap的表格过程中，只需要添加对应的类名就可以得到不同的表格风格。
+基础样式.table 基础表格
+附加样式.table-striped 斑马线表格
+.table-bordered 带边框的表格
+.table-hover 鼠标悬停高亮的表格
+.table-conensed 紧凑型表格，单元格没内距或者内距较其他表格的内距小。
+tr、th、td样式提供了五种不同的类名，每中类名控制了行的不同背景颜色
+.active 将悬停的颜色应用在行或者单元格上
+.sucess 表示成功的操作
+.info 表示信息变化的操作
+.warning 表示一个警告的操作
+.danger 表示一个危险的操作
+&lt;!--表格--&gt;
+&lt;div class&#x3D;&quot;col-md-12&quot;&gt;
+    &lt;table class&#x3D;&quot;table table-bordered table-hover&quot;&gt;
+        &lt;tr class&#x3D;&quot;active&quot;&gt;
+            &lt;th&gt;JavaSE&lt;&#x2F;th&gt;
+            &lt;th&gt;数据库&lt;&#x2F;th&gt;
+        &lt;&#x2F;tr&gt;
+        &lt;tr class&#x3D;&quot;danger&quot;&gt;
+            &lt;td&gt;面向对象&lt;&#x2F;td&gt;
+            &lt;td&gt;oracle&lt;&#x2F;td&gt;
+        &lt;&#x2F;tr&gt;
+        &lt;tr class&#x3D;&quot;success&quot;&gt;
+            &lt;td&gt;数组&lt;&#x2F;td&gt;
+            &lt;td&gt;mysql&lt;&#x2F;td&gt;
+        &lt;&#x2F;tr&gt;
+    &lt;&#x2F;table&gt;
+&lt;&#x2F;div&gt;</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AE%B5%E8%90%BD"><span class="toc-number">0.0.0.2.</span> <span class="toc-text">段落</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BC%BA%E8%B0%83"><span class="toc-number">0.0.0.3.</span> <span class="toc-text">强调</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AF%B9%E9%BD%90%E6%95%88%E6%9E%9C"><span class="toc-number">0.0.0.4.</span> <span class="toc-text">对齐效果</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-number">0.0.1.</span> <span class="toc-text">列表</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8E%BB%E7%82%B9%E5%88%97%E8%A1%A8"><span class="toc-number">0.0.1.1.</span> <span class="toc-text">去点列表</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%86%85%E8%81%94%E5%88%97%E8%A1%A8"><span class="toc-number">0.0.1.2.</span> <span class="toc-text">内联列表</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%88%97%E8%A1%A8"><span class="toc-number">0.0.1.3.</span> <span class="toc-text">定义列表</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">0.0.2.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC"><span class="toc-number">0.0.3.</span> <span class="toc-text">表格</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%A0%B7%E5%BC%8F"><span class="toc-number">0.0.3.1.</span> <span class="toc-text">基础样式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%99%84%E5%8A%A0%E6%A0%B7%E5%BC%8F"><span class="toc-number">0.0.3.2.</span> <span class="toc-text">附加样式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#tr%E3%80%81th%E3%80%81td%E6%A0%B7%E5%BC%8F"><span class="toc-number">0.0.3.3.</span> <span class="toc-text">tr、th、td样式</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://Archer-lan.github.io/2023/11/20/Bootstrap%E5%AD%A6%E4%B9%A0/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Lanlan"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Blog of Lanlan"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Bootstrap基本语法</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2023-11-20 13:11:39" itemprop="dateCreated datePublished" datetime="2023-11-20T13:11:39+08:00">2023-11-20</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Bootstrap%E5%AD%A6%E4%B9%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Bootstrap学习</span></a></span></span></div><div class="post-author"><div class="author-avatar"><img src="https://www.gravatar.com/avatar/8d43d7964b8cab986fa862a4518075a2?s=20&amp;d=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2FYunYouJun%2Fcdn%2Fimg%2Favatar%2Fnone.jpg"></div><span class="author-name">Lanlan</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#6200ee;"><h3 id="Bootstrap学习"><a href="#Bootstrap学习" class="headerlink" title="Bootstrap学习"></a>Bootstrap学习</h3><h5 id="v3版本"><a href="#v3版本" class="headerlink" title="v3版本"></a>v3版本</h5><p>下载bootstrap源码，将dist目录拷贝到项目文件中，重新命名。</p>
+<p>创建模板页面代码</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">doctype</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>zh-CN<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>IE=edge<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Bootstrap 101 Template<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- Bootstrap --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css<span class="token punctuation">"</span></span> <span class="token attr-name">integrity</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu<span class="token punctuation">"</span></span> <span class="token attr-name">crossorigin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>anonymous<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 --></span>
+    <span class="token comment">&lt;!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 --></span>
+    <span class="token comment">&lt;!--[if lt IE 9]>
+    &lt;script src="https://cdn.jsdelivr.cn/npm/html5shiv@3.7.3/dist/html5shiv.min.js">&lt;/script>
+    &lt;script src="https://cdn.jsdelivr.cn/npm/respond.js@1.4.2/dest/respond.min.js">&lt;/script>
+    &lt;![endif]--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>你好，世界！<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+
+<span class="token comment">&lt;!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://cdn.jsdelivr.cn/npm/jquery@1.12.4/dist/jquery.min.js<span class="token punctuation">"</span></span> <span class="token attr-name">integrity</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ<span class="token punctuation">"</span></span> <span class="token attr-name">crossorigin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>anonymous<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token comment">&lt;!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js<span class="token punctuation">"</span></span> <span class="token attr-name">integrity</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd<span class="token punctuation">"</span></span> <span class="token attr-name">crossorigin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>anonymous<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
+
+<h4 id="布局容器和栅格网格系统"><a href="#布局容器和栅格网格系统" class="headerlink" title="布局容器和栅格网格系统"></a>布局容器和栅格网格系统</h4><h5 id="布局容器"><a href="#布局容器" class="headerlink" title="布局容器"></a>布局容器</h5><p><code>.container</code>类用于固定宽度并支持响应式布局的容器</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+
+<p>效果如下：<img src="C:\Users\78125\AppData\Roaming\Typora\typora-user-images\image-20220912143815302.png" alt="image-20220912143815302" loading="lazy"></p>
+<p><code>.container-fluid</code>类用于100%宽度，占据全部视口（viewport）的容器</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container-fluid<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+
+<p>效果如下：</p>
+<p><img src="C:\Users\78125\AppData\Roaming\Typora\typora-user-images\image-20220912143856665.png" alt="image-20220912143856665" loading="lazy"></p>
+<h5 id="栅格网格系统"><a href="#栅格网格系统" class="headerlink" title="栅格网格系统"></a>栅格网格系统</h5><p>Bootstrap提供一套响应式、移动设备优先的流式栅格系统，随着屏幕或视口尺寸的增加，系统会自动分为最多12列。栅格系统用于通过一系列的行（row）与列（column）的组合来创建页面布局，你的内容就可以放入这些创建好的布局中。</p>
+<p>网格系统的原理非常简单，仅仅是通过定义容器大小，评分12份（或24份或32份），再调整内外边距，最后结合媒体查询，就制作出了强大的响应式网格系统。</p>
+<p><img src="C:\Users\78125\AppData\Roaming\Typora\typora-user-images\image-20220912145336194.png" alt="image-20220912145336194" loading="lazy"></p>
+<p>container、row、xs(xsmall phones)、sm（small tablets）、md(middle desktops)、lg(larger desktops)</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>col-md-4<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">background-color</span><span class="token punctuation">:</span> #5cb85c</span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>4列<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>col-md-8<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">background-color</span><span class="token punctuation">:</span> #999999</span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>8列<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+
+<p>注意：</p>
+<ul>
+<li>“行（row）”必须包含在 <code>.container</code> （固定宽度）或 <code>.container-fluid</code> （100% 宽度）中，以便为其赋予合适的排列（aligment）和内补（padding）。</li>
+<li>通过“行（row）”在水平方向创建一组“列（column）”。</li>
+<li>你的内容应当放置于“列（column）”内，并且，只有“列（column）”可以作为行（row）”的直接子元素。</li>
+<li>类似 <code>.row</code> 和 <code>.col-xs-4</code> 这种预定义的类，可以用来快速创建栅格布局。Bootstrap 源码中定义的 mixin 也可以用来创建语义化的布局。</li>
+<li>通过为“列（column）”设置 <code>padding</code> 属性，从而创建列与列之间的间隔（gutter）。通过为 <code>.row</code> 元素设置负值 <code>margin</code> 从而抵消掉为 <code>.container</code> 元素设置的 <code>padding</code>，也就间接为“行（row）”所包含的“列（column）”抵消掉了<code>padding</code>。</li>
+<li>负值的 margin就是下面的示例为什么是向外突出的原因。在栅格列中的内容排成一行。</li>
+<li>栅格系统中的列是通过指定1到12的值来表示其跨越的范围。例如，三个等宽的列可以使用三个 <code>.col-xs-4</code> 来创建。</li>
+<li>如果一“行（row）”中包含了的“列（column）”大于 12，多余的“列（column）”所在的元素将被作为一个整体另起一行排列。</li>
+<li>栅格类适用于与屏幕宽度大于或等于分界点大小的设备 ， 并且针对小屏幕设备覆盖栅格类。 因此，在元素上应用任何 <code>.col-md-*</code> 栅格类适用于与屏幕宽度大于或等于分界点大小的设备 ， 并且针对小屏幕设备覆盖栅格类。 因此，在元素上应用任何 <code>.col-lg-*</code> 不存在， 也影响大屏幕设备。</li>
+</ul>
+<h5 id="列偏移"><a href="#列偏移" class="headerlink" title="列偏移"></a>列偏移</h5><p>添加类属性<code>col-md-offset-1</code>数字为偏移的格子数。</p>
+<h5 id="列排序"><a href="#列排序" class="headerlink" title="列排序"></a>列排序</h5><p>列排序就是改变列的方向，就是改变左右浮动，并且设置浮动的距离。在Bootstrap框架的网格系统中是通过添加类名<code>col-md-push-*</code>和<code>col-md-pull-*</code>向前是pull，向后是push。</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>col-md-4 col-md-push-10<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">background-color</span><span class="token punctuation">:</span> #5cb85c</span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>4列<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>col-md-8 col-md-pull-1<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">background-color</span><span class="token punctuation">:</span> #999999</span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>8列<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+
+<h5 id="列嵌套"><a href="#列嵌套" class="headerlink" title="列嵌套"></a>列嵌套</h5><h4 id="常用样式"><a href="#常用样式" class="headerlink" title="常用样式"></a>常用样式</h4><h5 id="排版"><a href="#排版" class="headerlink" title="排版"></a>排版</h5><h6 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h6><p>bootstrap和普通HTML页面一样，定义标题都是使用<h1>到<h6>，只不过bootstrap覆盖了其默认的样式，使用其在浏览器下显示的效果一样。为了让非标题元素和标题使用相同的样式，还特意定义了.h1-.h6的六个类名。同时后面可以紧跟着一行小的副标题<small></small>或使用.small</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>这是一个一级标题<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>small</span><span class="token punctuation">></span></span>这是一个副标题<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>small</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>h1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>这是一个一级标题<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>small<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>这是一个副标题<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+
+<p>效果保持一致</p>
+<h6 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h6><p>通过<code>.lead</code>来突出强调内容（其作用就是增大文本字号，加粗文本，而且对行高和margin也做相应的处理）。可以使用以下标签给文本做突出样式处理：</p>
+<p><small>:小号字</p>
+<p><b><strong>:加粗</p>
+<p><i><em>:斜体</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>col-md-12<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>lead<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>small</span><span class="token punctuation">></span></span>这是一个<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>small</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>b</span><span class="token punctuation">></span></span>测<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>b</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span><span class="token punctuation">></span></span>试<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>段落<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>em</span><span class="token punctuation">></span></span>的<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>em</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">></span></span>句子<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+
+<h6 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h6><p>通过颜色来表示强调</p>
+<p><code>.text-muted</code> 提示，使用浅灰色（#999）</p>
+<p><code>.text-primary</code> 主要，使用蓝色（#428bca）</p>
+<p><code>.text-success</code> 成功，使用浅绿色（#3c763d）</p>
+<p><code>.text-info</code> 通知信息，使用浅蓝色（#31708f）</p>
+<p><code>.text-warning</code> 警告，使用黄色（#8a6d3b）</p>
+<p><code>.text-danger</code> 危险，使用褐色（#a94442）</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>col-md-12<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-muted<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>提示效果<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-primary<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>主要效果<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-success<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>成功效果<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-info<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>信息效果<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-warning<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>警告效果<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text-danger<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>危险效果<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+
+<h6 id="对齐效果"><a href="#对齐效果" class="headerlink" title="对齐效果"></a>对齐效果</h6><p>为了简化操作，bootstrap通过定义四个类名来控制文本的对齐风格：<code>.text-left</code>左对齐、<code>.text-center</code>居中对齐、<code>.text-right</code>右对齐、<code>.text-justify</code>两端对齐</p>
+<h5 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h5><h6 id="去点列表"><a href="#去点列表" class="headerlink" title="去点列表"></a>去点列表</h6><p><code>class=&quot;list-unstyled&quot;</code></p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token comment">&lt;!--去点列表--></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>list-unstyled<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>无序列表1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>无序列表2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span></code></pre>
+
+<h6 id="内联列表"><a href="#内联列表" class="headerlink" title="内联列表"></a>内联列表</h6><p><code>class=&quot;list-inline&quot;</code></p>
+<pre class="language-html" data-language="html"><code class="language-html">  <span class="token comment">&lt;!--内联列表--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>list-inline<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>首页<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>多选<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>次选<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span></code></pre>
+
+<h6 id="定义列表"><a href="#定义列表" class="headerlink" title="定义列表"></a>定义列表</h6><dt>为标题
+
+<dd>为内容
+
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token comment">&lt;!--定义列表--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dl</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dl-horizontal<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dt</span><span class="token punctuation">></span></span>这是一个标题啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dt</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dd</span><span class="token punctuation">></span></span>这是一个内容<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dd</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dd</span><span class="token punctuation">></span></span>如果标题超过了160px的宽度的话，则会自动加3个点进行省略。<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dd</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dl</span><span class="token punctuation">></span></span></code></pre>
+
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p>bootstrap提供了三种代码风格：</p>
+<ol>
+<li><p>使用<code></code>来显示单行内联代码</p>
+</li>
+<li><p>使用<pre></pre>来显示多行块代码</p>
+<p>样式：pre-scrollable（height,max-height高度固定，为340px，超过存在滚动条）</p>
+<p>3.使用<kbd></kbd>来显示用户输入代码，如快捷键。</p>
+</li>
+</ol>
+<h5 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h5><p>bootstrap为表格提供了1种基础样式和4种附加样式以及一个支持响应式的表格。在使用bootstrap的表格过程中，只需要添加对应的类名就可以得到不同的表格风格。</p>
+<h6 id="基础样式"><a href="#基础样式" class="headerlink" title="基础样式"></a>基础样式</h6><p><code>.table</code> 基础表格</p>
+<h6 id="附加样式"><a href="#附加样式" class="headerlink" title="附加样式"></a>附加样式</h6><p><code>.table-striped</code> 斑马线表格</p>
+<p><code>.table-bordered</code> 带边框的表格</p>
+<p><code>.table-hover</code> 鼠标悬停高亮的表格</p>
+<p><code>.table-conensed</code> 紧凑型表格，单元格没内距或者内距较其他表格的内距小。</p>
+<h6 id="tr、th、td样式"><a href="#tr、th、td样式" class="headerlink" title="tr、th、td样式"></a>tr、th、td样式</h6><p>提供了五种不同的类名，每中类名控制了行的不同背景颜色</p>
+<p><code>.active</code> 将悬停的颜色应用在行或者单元格上</p>
+<p><code>.sucess</code> 表示成功的操作</p>
+<p><code>.info</code> 表示信息变化的操作</p>
+<p><code>.warning</code> 表示一个警告的操作</p>
+<p><code>.danger</code> 表示一个危险的操作</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token comment">&lt;!--表格--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>col-md-12<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>table table-bordered table-hover<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>active<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span>JavaSE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span>数据库<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>danger<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>面向对象<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>oracle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>success<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>数组<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>mysql<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>Lanlan</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://archer-lan.github.io/2023/11/20/Bootstrap%E5%AD%A6%E4%B9%A0/" title="Bootstrap基本语法">https://archer-lan.github.io/2023/11/20/Bootstrap%E5%AD%A6%E4%B9%A0/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2023/11/20/CSS-%E7%BB%93%E6%9E%84%E4%BC%AA%E7%B1%BB/" rel="prev" title="CSS-结构伪类"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">CSS-结构伪类</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2023/11/20/%E5%B1%9E%E6%80%A7%E6%8F%8F%E8%BF%B0/" rel="next" title="JavaScript-属性描述"><span class="post-nav-text">JavaScript-属性描述</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备xxxxxxxx号</a></div><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Lanlan</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.0.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.7.0</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2019-02-14T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#6200ee" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4","5-12"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>

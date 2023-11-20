@@ -1,0 +1,361 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#6200ee"><meta name="author" content="Lanlan"><meta name="copyright" content="Lanlan"><meta name="generator" content="Hexo 6.0.0"><meta name="theme" content="hexo-theme-yun"><title>GLSL ES着色器语言-数据类型 | Blog of Lanlan</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/png" href="/bitbug_favicon.ico"><link rel="mask-icon" href="/bitbug_favicon.ico" color="#6200ee"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"archer-lan.github.io","root":"/","title":"蓝蓝的小站","version":"1.7.0","mode":"time","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="GLSL ES着色器语言-数据类型基本数据类型   关键字 数据类型 值    bool 布尔值 布尔变量值为true或false   int 整形数 值为整数，如1，2，3….   float 单精度浮点数 浮点数用小数点表示，如0.6，3.14，2.8   &#x2F;&#x2F; bool关键字声明一个数据类型是布尔值的变量，并赋值为true bool lightBool &#x3D; true; &#x2F;&#x2F; 改变变量的值 l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GLSL ES着色器语言-数据类型">
+<meta property="og:url" content="https://archer-lan.github.io/2023/11/20/GLSL%20ES%E7%9D%80%E8%89%B2%E5%99%A8%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Blog of Lanlan">
+<meta property="og:description" content="GLSL ES着色器语言-数据类型基本数据类型   关键字 数据类型 值    bool 布尔值 布尔变量值为true或false   int 整形数 值为整数，如1，2，3….   float 单精度浮点数 浮点数用小数点表示，如0.6，3.14，2.8   &#x2F;&#x2F; bool关键字声明一个数据类型是布尔值的变量，并赋值为true bool lightBool &#x3D; true; &#x2F;&#x2F; 改变变量的值 l">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-20T05:11:39.166Z">
+<meta property="article:modified_time" content="2023-11-17T14:43:38.000Z">
+<meta property="article:author" content="Lanlan">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Lanlan"><img width="96" loading="lazy" src="/images/avater.png" alt="Lanlan"><span class="site-author-status" title="天天开心">😭</span></a><div class="site-author-name"><a href="/about/">Lanlan</a></div><a class="site-name" href="/about/site.html">Blog of Lanlan</a><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">116</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">15</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=781251187&amp;site=qq&amp;menu=yes" title="QQ" target="_blank" style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Archer-lan" title="GitHub" target="_blank" style="color:#181717"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:lan78125@gmail.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=280461298" title="网易云音乐" target="_blank" style="color:#C10D0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/20745958?spm_id_from=333.1007.0.0" title="哔哩哔哩动画" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#GLSL-ES%E7%9D%80%E8%89%B2%E5%99%A8%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">GLSL ES着色器语言-数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">基本数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.2.</span> <span class="toc-text">数据类型转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A2%E9%87%8F-x2F-%E5%90%91%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">矢量&#x2F;向量</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">声明变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%B5%8B%E5%80%BC"><span class="toc-number">1.3.2.</span> <span class="toc-text">构造函数赋值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E8%8E%B7%E5%8F%96%E5%90%91%E9%87%8F%E5%88%86%E9%87%8F"><span class="toc-number">1.3.3.</span> <span class="toc-text">访问获取向量分量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%88%86%E9%87%8F%E6%9B%B4%E5%A4%9A%E7%81%B5%E6%B4%BB%E5%86%99%E6%B3%95"><span class="toc-number">1.3.4.</span> <span class="toc-text">向量分量更多灵活写法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97"><span class="toc-number">1.3.5.</span> <span class="toc-text">数学运算</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5"><span class="toc-number">1.4.</span> <span class="toc-text">矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%B5%8B%E5%80%BC-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">构造函数赋值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%A7%92%E7%9F%A9%E9%98%B5"><span class="toc-number">1.4.2.</span> <span class="toc-text">快速创建对角矩阵</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E7%9F%A9%E9%98%B5%E5%85%83%E7%B4%A0%EF%BC%88-%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%89"><span class="toc-number">1.4.3.</span> <span class="toc-text">访问矩阵元素（[ ]运算符）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97%EF%BC%88%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%B5%AE%E7%82%B9%E6%95%B0%EF%BC%89"><span class="toc-number">1.4.4.</span> <span class="toc-text">数学运算（矩阵与浮点数）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97%EF%BC%88%E7%9F%A9%E9%98%B5%E4%B9%98%E5%90%91%E9%87%8F%EF%BC%89"><span class="toc-number">1.4.5.</span> <span class="toc-text">数学运算（矩阵乘向量）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E8%BF%90%E7%AE%97%EF%BC%88%E7%9F%A9%E9%98%B5%E4%B9%98%E7%9F%A9%E9%98%B5%EF%BC%89"><span class="toc-number">1.4.6.</span> <span class="toc-text">数学运算（矩阵乘矩阵）</span></a></li></ol></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://Archer-lan.github.io/2023/11/20/GLSL%20ES%E7%9D%80%E8%89%B2%E5%99%A8%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Lanlan"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="Blog of Lanlan"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">GLSL ES着色器语言-数据类型</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2023-11-20 13:11:39" itemprop="dateCreated datePublished" datetime="2023-11-20T13:11:39+08:00">2023-11-20</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修改时间：2023-11-17 22:43:38" itemprop="dateModified" datetime="2023-11-17T22:43:38+08:00">2023-11-17</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Web3D%E5%AD%A6%E4%B9%A0/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Web3D学习</span></a></span></span></div><div class="post-author"><div class="author-avatar"><img src="https://www.gravatar.com/avatar/8d43d7964b8cab986fa862a4518075a2?s=20&amp;d=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2FYunYouJun%2Fcdn%2Fimg%2Favatar%2Fnone.jpg"></div><span class="author-name">Lanlan</span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#6200ee;"><h3 id="GLSL-ES着色器语言-数据类型"><a href="#GLSL-ES着色器语言-数据类型" class="headerlink" title="GLSL ES着色器语言-数据类型"></a>GLSL ES着色器语言-数据类型</h3><h4 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h4><table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>数据类型</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bool</td>
+<td>布尔值</td>
+<td>布尔变量值为true或false</td>
+</tr>
+<tr>
+<td>int</td>
+<td>整形数</td>
+<td>值为整数，如1，2，3….</td>
+</tr>
+<tr>
+<td>float</td>
+<td>单精度浮点数</td>
+<td>浮点数用小数点表示，如0.6，3.14，2.8</td>
+</tr>
+</tbody></table>
+<pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">// bool关键字声明一个数据类型是布尔值的变量，并赋值为true</span>
+<span class="token keyword">bool</span> lightBool <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+<span class="token comment">// 改变变量的值</span>
+lightBool <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+<span class="token comment">// 着色器语言定义一个整形常量</span>
+<span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token comment">// 改变变量count的值</span>
+count <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+<span class="token comment">// 定义一个浮点数变量num，并赋值10.0,赋值为整数时会报错</span>
+<span class="token keyword">float</span> num <span class="token operator">=</span> <span class="token number">10.0</span><span class="token punctuation">;</span></code></pre>
+
+<h4 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h4><p>整型数<code>int</code>、浮点数<code>float</code>、布尔值<code>bool</code>三种不同的数据值可以相互转化，把一个类型转化为另一个类型通过相应的内置函数<code>int()</code>、<code>float()</code>、<code>bool()</code>实现。</p>
+<table>
+<thead>
+<tr>
+<th>转化</th>
+<th>函数</th>
+<th>规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>浮点数转整型数</td>
+<td>int(10.1)</td>
+<td>直接把浮点数部分去掉，10.1转化为10</td>
+</tr>
+<tr>
+<td>整型数转浮点数</td>
+<td>float(10)</td>
+<td>整型数直接转化为浮点数10.0</td>
+</tr>
+<tr>
+<td>数值转布尔值</td>
+<td>bool(10)</td>
+<td>0或0.0转化为false，非0或非0.0转化为true</td>
+</tr>
+<tr>
+<td>布尔值转整型数</td>
+<td>int(true)</td>
+<td>false转化为0，true转化为1</td>
+</tr>
+<tr>
+<td>布尔值转浮点数</td>
+<td>float(true)</td>
+<td>false转化为0.0，true转化为1.0</td>
+</tr>
+</tbody></table>
+<pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">//声明一个整型数变量num，并赋值1</span>
+<span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token comment">// 整型数num转化为浮点数fnum</span>
+<span class="token keyword">float</span> fnum <span class="token operator">=</span> <span class="token keyword">float</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//声明一个浮点数变量fnum，并赋值1.0</span>
+<span class="token keyword">float</span> fnum <span class="token operator">=</span> <span class="token number">1.08</span><span class="token punctuation">;</span>
+<span class="token comment">// 浮点数转化整型数</span>
+<span class="token keyword">int</span> inum <span class="token operator">=</span> <span class="token keyword">int</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//转化结果1</span></code></pre>
+
+<h4 id="矢量-x2F-向量"><a href="#矢量-x2F-向量" class="headerlink" title="矢量&#x2F;向量"></a>矢量&#x2F;向量</h4><table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vec2</td>
+<td>二维向量，具有xy两个分量，分量是浮点数。</td>
+</tr>
+<tr>
+<td>vec3</td>
+<td>三维向量，具有xyz三个分量，分量是浮点数</td>
+</tr>
+<tr>
+<td>vec4</td>
+<td>四维向量 ，具有xyzw四个分量，分量是浮点数</td>
+</tr>
+<tr>
+<td>ivec2</td>
+<td>二维向量，分量是整型数</td>
+</tr>
+<tr>
+<td>ivec3</td>
+<td>三维向量 ，分量是整型数</td>
+</tr>
+<tr>
+<td>ivec4</td>
+<td>四维向量 ，分量是整型数</td>
+</tr>
+<tr>
+<td>bvec2</td>
+<td>二维向量，分量是布尔值bool</td>
+</tr>
+<tr>
+<td>bvec3</td>
+<td>三维向量 ，分量是布尔值bool</td>
+</tr>
+<tr>
+<td>bvec4</td>
+<td>四维向量 ，分量是布尔值bool</td>
+</tr>
+</tbody></table>
+<h5 id="声明变量"><a href="#声明变量" class="headerlink" title="声明变量"></a>声明变量</h5><p><code>vec3 direction;</code></p>
+<h5 id="构造函数赋值"><a href="#构造函数赋值" class="headerlink" title="构造函数赋值"></a>构造函数赋值</h5><p>向量类型数据需要通过相应的构造函数创建，<code>vec3()</code>构造函数创建一个三维向量赋值给<code>direction</code>变量</p>
+<pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token keyword">vec3</span> direction<span class="token punctuation">;</span>
+<span class="token comment">// 赋值</span>
+direction <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">0.0</span><span class="token punctuation">,</span><span class="token number">0.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 声明一个整型二维向量，ivec2所有参数都是整型数</span>
+<span class="token keyword">ivec2</span> iv2 <span class="token operator">=</span> <span class="token keyword">ivec2</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="访问获取向量分量"><a href="#访问获取向量分量" class="headerlink" title="访问获取向量分量"></a>访问获取向量分量</h5><p>一个向量由多个不同分量构成，可以通过符号<code>.</code>进行访问</p>
+<table>
+<thead>
+<tr>
+<th>向量vector</th>
+<th>访问方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一个分量</td>
+<td>vector.x</td>
+</tr>
+<tr>
+<td>第二个分量</td>
+<td>vector.y</td>
+</tr>
+<tr>
+<td>第三个分量</td>
+<td>vector.z</td>
+</tr>
+<tr>
+<td>第四个分量</td>
+<td>vector.w</td>
+</tr>
+</tbody></table>
+<p>如：</p>
+<pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">// 声明一个三维向量，假设向量表示三维坐标中一个位置坐标</span>
+<span class="token keyword">vec3</span> pos <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">10.2</span><span class="token punctuation">,</span><span class="token number">9.6</span><span class="token punctuation">,</span><span class="token number">3.9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 访问x坐标</span>
+<span class="token keyword">float</span> x <span class="token operator">=</span> pos<span class="token punctuation">.</span>x<span class="token punctuation">;</span><span class="token comment">//访问获取向量的x分量</span>
+<span class="token comment">// 访问z坐标</span>
+<span class="token keyword">float</span> z <span class="token operator">=</span> pos<span class="token punctuation">.</span>z<span class="token punctuation">;</span><span class="token comment">//访问获取向量的z分量</span>
+<span class="token comment">// 声明一个三维向量，假设表示RGB颜色值，三个参数分别表示红色R、绿色G、蓝色B</span>
+<span class="token keyword">vec3</span> rgb <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">,</span><span class="token number">0.3</span><span class="token punctuation">,</span><span class="token number">0.2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 访问颜色值R分量</span>
+<span class="token keyword">float</span> R <span class="token operator">=</span> rgb<span class="token punctuation">.</span>x<span class="token punctuation">;</span><span class="token comment">//访问获取向量的x分量</span>
+<span class="token comment">// 访问颜色值G分量</span>
+<span class="token keyword">float</span> G <span class="token operator">=</span> rgb<span class="token punctuation">.</span>z<span class="token punctuation">;</span><span class="token comment">//访问获取向量的z分量</span></code></pre>
+
+<p>向量的分量可以获取赋值给其它的变量，也可以通过访问分量改变向量的值。</p>
+<pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">// 声明一个三维向量，假设向量表示三维坐标中一个位置坐标</span>
+<span class="token keyword">vec3</span> pos <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">10.2</span><span class="token punctuation">,</span><span class="token number">9.6</span><span class="token punctuation">,</span><span class="token number">3.9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 三维向量pos的x分量被改变，相当于在原来的基础上沿着x轴平移2.0</span>
+pos<span class="token punctuation">.</span>x <span class="token operator">=</span> pos<span class="token punctuation">.</span>x<span class="token operator">+</span><span class="token number">2.0</span><span class="token punctuation">;</span>
+<span class="token comment">// 直接改变三维向量的x分量，相当于把顶点的x坐标值直接设置为20.0</span>
+pos<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">20.0</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="向量分量更多灵活写法"><a href="#向量分量更多灵活写法" class="headerlink" title="向量分量更多灵活写法"></a>向量分量更多灵活写法</h5><pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">// 声明一个三维向量变量，并赋值</span>
+<span class="token keyword">vec3</span> v3 <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">10.0</span><span class="token punctuation">,</span><span class="token number">9.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 声明一个二维向量</span>
+<span class="token keyword">vec2</span> v2<span class="token punctuation">;</span>
+<span class="token comment">// 提取向量v3的xy两个分量赋值给二维向量v2</span>
+v2 <span class="token operator">=</span> v3<span class="token punctuation">.</span>xy<span class="token punctuation">;</span><span class="token comment">//v3.xy相等于vec2(10.0,9.0);</span>
+<span class="token comment">// v3的x分量赋值给v2的x分量，v3的z分量赋值给v2的y分量</span>
+v2 <span class="token operator">=</span> v3<span class="token punctuation">.</span>xz<span class="token punctuation">;</span><span class="token comment">//获得zx分量  v3.xz等价于vec2(10.0,3.0)</span>
+v2 <span class="token operator">=</span> v3<span class="token punctuation">.</span>yz<span class="token punctuation">;</span><span class="token comment">//获得yz分量</span>
+<span class="token comment">//获得zx分量 v3的z分量赋值给v2的x分量，v3的x分量赋值给v2的y分量</span>
+v2 <span class="token operator">=</span> v3<span class="token punctuation">.</span>zx<span class="token punctuation">;</span>
+
+<span class="token comment">// 声明一个四维向量变量，并赋值</span>
+<span class="token keyword">vec4</span> v4 <span class="token operator">=</span> <span class="token keyword">vec4</span><span class="token punctuation">(</span><span class="token number">10.0</span><span class="token punctuation">,</span><span class="token number">9.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">,</span><span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 提取v4前三个分量，并赋值给一个三维向量变量</span>
+<span class="token keyword">vec3</span> v3 <span class="token operator">=</span> v4<span class="token punctuation">.</span>xyz<span class="token punctuation">;</span>
+
+<span class="token comment">// 声明一个四维向量变量，并赋值</span>
+<span class="token keyword">vec4</span> v4 <span class="token operator">=</span> <span class="token keyword">vec4</span><span class="token punctuation">(</span><span class="token number">10.0</span><span class="token punctuation">,</span><span class="token number">9.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">,</span><span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 访问特定分量，使用构造函数重新构造一个向量</span>
+<span class="token keyword">vec3</span> v3 <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span>v4<span class="token punctuation">.</span>x<span class="token punctuation">,</span><span class="token number">2.9</span><span class="token punctuation">,</span>v4<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">vec2</span> v2 <span class="token operator">=</span> <span class="token keyword">vec2</span><span class="token punctuation">(</span>v4<span class="token punctuation">.</span>x<span class="token punctuation">,</span>v4<span class="token punctuation">.</span>z<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="数学运算"><a href="#数学运算" class="headerlink" title="数学运算"></a>数学运算</h5><p>一个向量加一个数字，相当于每个分量加上该数字，注意向量分量是整型数还是浮点数，加上的数字保持数据类型一致。</p>
+<pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">//加法：</span>
+<span class="token keyword">vec3</span> pos <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+pos <span class="token operator">=</span> pos<span class="token operator">+</span><span class="token number">1.0</span><span class="token punctuation">;</span><span class="token comment">//pos新的值为vec3(2.0,3.0,4.0)</span>
+<span class="token keyword">vec3</span> pos2 <span class="token operator">=</span> pos<span class="token operator">+</span><span class="token number">1.0</span><span class="token punctuation">;</span><span class="token comment">//pos不改变，赋值给新的变量</span>
+
+<span class="token comment">//减法：</span>
+<span class="token keyword">vec3</span> pos <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+pos <span class="token operator">=</span> pos<span class="token operator">-</span><span class="token number">1.0</span><span class="token punctuation">;</span><span class="token comment">//pos新的值为vec3(0.0,1.0,2.0)</span>
+
+<span class="token comment">//乘法</span>
+<span class="token keyword">vec3</span> pos <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+pos <span class="token operator">=</span> pos<span class="token operator">*</span><span class="token number">2.0</span><span class="token punctuation">;</span><span class="token comment">//pos新的值为vec3(2.0,4.0,6.0)</span>
+
+<span class="token comment">//除法</span>
+<span class="token keyword">vec3</span> pos <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+pos <span class="token operator">=</span> pos<span class="token operator">/</span><span class="token number">2.0</span><span class="token punctuation">;</span><span class="token comment">//pos新的值为vec3(0.5,1.0,1.5)</span></code></pre>
+
+<p>两向量</p>
+<pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">//加法：</span>
+<span class="token keyword">vec3</span> v1 <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">vec3</span> v2 <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">vec3</span> v3 <span class="token operator">=</span> v1<span class="token operator">+</span>v2<span class="token punctuation">;</span><span class="token comment">//结果为vec3(0.0,0.0,0.0)</span>
+
+<span class="token comment">//减法：</span>
+<span class="token keyword">vec3</span> v1 <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">vec3</span> v2 <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">vec3</span> v3 <span class="token operator">=</span> v1<span class="token operator">-</span>v2<span class="token punctuation">;</span><span class="token comment">//结果为vec3(2.0,4.0,6.0)</span>
+
+<span class="token comment">//乘法</span>
+<span class="token keyword">vec3</span> v1 <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">vec3</span> v2 <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">vec3</span> v3 <span class="token operator">=</span> v1<span class="token operator">*</span>v2<span class="token punctuation">;</span><span class="token comment">//结果为vec3(-1.0,-4.0,-9.0)</span>
+
+<span class="token comment">//除法</span>
+<span class="token keyword">vec3</span> v1 <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">vec3</span> v2 <span class="token operator">=</span> <span class="token keyword">vec3</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1.0</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">2.0</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">vec3</span> v3 <span class="token operator">=</span> v1<span class="token operator">/</span>v2<span class="token punctuation">;</span><span class="token comment">//结果为vec3(-1.0,-1.0,-1.0)</span></code></pre>
+
+<h4 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h4><p>着色器语言中通过关键字<code>mat2</code>、<code>mat3</code>、<code>mat4</code>分别声明一个2x2矩阵、3x3矩阵、4x4矩阵，通过内置函数<code>mat2()</code>，<code>mat3()</code>、<code>mat4()</code>分别创建一个2x2矩阵、3x3矩阵、4x4矩阵。</p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mat2</td>
+<td>2x2矩阵，4个元素</td>
+</tr>
+<tr>
+<td>mat3</td>
+<td>3x3矩阵，9个元素</td>
+</tr>
+<tr>
+<td>mat4</td>
+<td>4x4矩阵，16个元素</td>
+</tr>
+</tbody></table>
+<h5 id="构造函数赋值-1"><a href="#构造函数赋值-1" class="headerlink" title="构造函数赋值"></a>构造函数赋值</h5><p>创建一个4x4矩阵并赋值</p>
+<pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">// 需要表示的矩阵</span>
+<span class="token comment">// 1.1 1.2 1.3 1.4</span>
+<span class="token comment">// 2.1 2.2 2.3 2.4</span>
+<span class="token comment">// 3.1 3.2 3.3 3.4</span>
+<span class="token comment">// 4.1 4.2 4.3 4.4</span>
+<span class="token keyword">mat4</span> matrix4 <span class="token operator">=</span> <span class="token keyword">mat4</span><span class="token punctuation">(</span>
+<span class="token number">1.1</span><span class="token punctuation">,</span><span class="token number">2.1</span><span class="token punctuation">,</span><span class="token number">3.1</span><span class="token punctuation">,</span><span class="token number">4.1</span><span class="token punctuation">,</span>
+<span class="token number">1.2</span><span class="token punctuation">,</span><span class="token number">2.2</span><span class="token punctuation">,</span><span class="token number">3.2</span><span class="token punctuation">,</span><span class="token number">4.2</span><span class="token punctuation">,</span>
+<span class="token number">1.3</span><span class="token punctuation">,</span><span class="token number">2.3</span><span class="token punctuation">,</span><span class="token number">3.3</span><span class="token punctuation">,</span><span class="token number">4.3</span><span class="token punctuation">,</span>
+<span class="token number">1.4</span><span class="token punctuation">,</span><span class="token number">2.4</span><span class="token punctuation">,</span><span class="token number">3.4</span><span class="token punctuation">,</span><span class="token number">4.4</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="快速创建对角矩阵"><a href="#快速创建对角矩阵" class="headerlink" title="快速创建对角矩阵"></a>快速创建对角矩阵</h5><p>如果是对角矩阵，可以直接传入一个参数就可以。</p>
+<pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">// 2.0 0.0 0.0 0.0</span>
+<span class="token comment">// 0.0 2.0 0.0 0.0</span>
+<span class="token comment">// 0.0 0.0 2.0 0.0</span>
+<span class="token comment">// 0.0 0.0 0.0 2.0</span>
+<span class="token keyword">mat4</span> matrix <span class="token operator">=</span> <span class="token keyword">mat4</span><span class="token punctuation">(</span><span class="token number">2.0</span><span class="token punctuation">)</span></code></pre>
+
+<h5 id="访问矩阵元素（-运算符）"><a href="#访问矩阵元素（-运算符）" class="headerlink" title="访问矩阵元素（[ ]运算符）"></a>访问矩阵元素（[ ]运算符）</h5><pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token keyword">mat4</span> matrix4 <span class="token operator">=</span> <span class="token keyword">mat4</span><span class="token punctuation">(</span>
+<span class="token number">1.1</span><span class="token punctuation">,</span><span class="token number">2.1</span><span class="token punctuation">,</span><span class="token number">3.1</span><span class="token punctuation">,</span><span class="token number">4.1</span><span class="token punctuation">,</span>
+<span class="token number">1.2</span><span class="token punctuation">,</span><span class="token number">2.2</span><span class="token punctuation">,</span><span class="token number">3.2</span><span class="token punctuation">,</span><span class="token number">4.2</span><span class="token punctuation">,</span>
+<span class="token number">1.3</span><span class="token punctuation">,</span><span class="token number">2.3</span><span class="token punctuation">,</span><span class="token number">3.3</span><span class="token punctuation">,</span><span class="token number">4.3</span><span class="token punctuation">,</span>
+<span class="token number">1.4</span><span class="token punctuation">,</span><span class="token number">2.4</span><span class="token punctuation">,</span><span class="token number">3.4</span><span class="token punctuation">,</span><span class="token number">4.4</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 访问矩阵matrix4的第二列</span>
+<span class="token keyword">vec4</span> v4 <span class="token operator">=</span> matrix4<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//返回值vec4(1.2,2.2,3.2,4.2)</span>
+<span class="token comment">// 访问矩阵matrix4的第三列第四行对应的元素</span>
+<span class="token keyword">float</span> f <span class="token operator">=</span> matrix4<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//返回4.3</span></code></pre>
+
+<h5 id="数学运算（矩阵与浮点数）"><a href="#数学运算（矩阵与浮点数）" class="headerlink" title="数学运算（矩阵与浮点数）"></a>数学运算（矩阵与浮点数）</h5><pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token keyword">mat4</span> matrix4 <span class="token operator">=</span> <span class="token keyword">mat4</span><span class="token punctuation">(</span><span class="token number">1.1</span><span class="token punctuation">,</span><span class="token number">2.1</span><span class="token punctuation">,</span><span class="token number">3.1</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">mat4</span> m2 <span class="token operator">=</span> matrix4<span class="token operator">*</span><span class="token number">10</span><span class="token punctuation">;</span><span class="token comment">//结果是mat4(11.0,21.0,31.0...)</span></code></pre>
+
+<h5 id="数学运算（矩阵乘向量）"><a href="#数学运算（矩阵乘向量）" class="headerlink" title="数学运算（矩阵乘向量）"></a>数学运算（矩阵乘向量）</h5><pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">//声明一个四维向量pos，xyz的坐标是0.8,3.2,6.8，假设表示一个顶点位置坐标</span>
+<span class="token keyword">vec4</span> pos <span class="token operator">=</span> <span class="token keyword">vec4</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">,</span><span class="token number">3.2</span><span class="token punctuation">,</span><span class="token number">6.8</span><span class="token punctuation">,</span><span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//创建平移矩阵(表示沿x轴平移-0.4)</span>
+<span class="token comment">//1   0   0  -0.4</span>
+<span class="token comment">//0   1   0    0</span>
+<span class="token comment">//0   0   1    0</span>
+<span class="token comment">//0   0   0    1</span>
+<span class="token keyword">mat4</span> m4 <span class="token operator">=</span> <span class="token keyword">mat4</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token operator">-</span><span class="token number">0.4</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//平移矩阵m4左乘顶点坐标pos(vec4类型数据可以理解为线性代数中的nx1矩阵，即列向量)</span>
+<span class="token comment">// 顶点位置坐标pos进行平移变换</span>
+<span class="token keyword">vec4</span> newPos<span class="token operator">=</span> m4<span class="token operator">*</span>pos<span class="token punctuation">;</span><span class="token comment">//平移后结果：newPos = vec4(-0.4,3.2,6.8,1.0)</span></code></pre>
+
+<h5 id="数学运算（矩阵乘矩阵）"><a href="#数学运算（矩阵乘矩阵）" class="headerlink" title="数学运算（矩阵乘矩阵）"></a>数学运算（矩阵乘矩阵）</h5><p><code>mx*my</code>:表示矩阵mx左乘矩阵my，着色器中矩阵之间乘法运算规则和线性代数中规则一致。</p>
+<p>假设<code>mx</code>、<code>my</code>都是旋转矩阵，下面代码表示旋转矩阵mx和旋转矩阵my的乘积，然后对顶点进行变换，相当顶点旋转执行mx和my两次旋转。</p>
+<pre class="language-glsl" data-language="glsl"><code class="language-glsl"><span class="token comment">// 顶点齐次坐标pos</span>
+<span class="token keyword">vec4</span> pos <span class="token operator">=</span> <span class="token keyword">vec4</span><span class="token punctuation">(</span><span class="token number">0.0</span><span class="token punctuation">,</span><span class="token number">3.2</span><span class="token punctuation">,</span><span class="token number">6.8</span><span class="token punctuation">,</span><span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">float</span> radian <span class="token operator">=</span> <span class="token function">radians</span><span class="token punctuation">(</span><span class="token number">30.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//角度转弧度</span>
+<span class="token keyword">float</span> cos <span class="token operator">=</span> <span class="token function">cos</span><span class="token punctuation">(</span>radian<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//求解旋转角度余弦值</span>
+<span class="token keyword">float</span> sin <span class="token operator">=</span> <span class="token function">sin</span><span class="token punctuation">(</span>radian<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//求解旋转角度正弦值</span>
+<span class="token comment">//旋转矩阵mx，创建绕x轴旋转矩阵</span>
+<span class="token keyword">mat4</span> mx <span class="token operator">=</span> <span class="token keyword">mat4</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span>cos<span class="token punctuation">,</span><span class="token operator">-</span>sin<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span>sin<span class="token punctuation">,</span>cos<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//旋转矩阵my，创建绕y轴旋转矩阵</span>
+<span class="token keyword">mat4</span> my <span class="token operator">=</span> <span class="token keyword">mat4</span><span class="token punctuation">(</span>cos<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token operator">-</span>sin<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>  sin<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>cos<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//两个旋转矩阵、顶点齐次坐标连乘</span>
+<span class="token keyword">vec4</span> newPos <span class="token operator">=</span> mx<span class="token operator">*</span>my<span class="token operator">*</span>pos<span class="token punctuation">;</span></code></pre>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>Lanlan</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://archer-lan.github.io/2023/11/20/GLSL%20ES%E7%9D%80%E8%89%B2%E5%99%A8%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="GLSL ES着色器语言-数据类型">https://archer-lan.github.io/2023/11/20/GLSL%20ES%E7%9D%80%E8%89%B2%E5%99%A8%E8%AF%AD%E8%A8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2023/11/20/GLSL%20ES%E7%9D%80%E8%89%B2%E5%99%A8%E8%AF%AD%E8%A8%80-%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/" rel="prev" title="GLSL ES着色器语言-内置函数"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">GLSL ES着色器语言-内置函数</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2023/11/20/GLSL%20ES%E7%9D%80%E8%89%B2%E5%99%A8%E8%AF%AD%E8%A8%80-%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F/" rel="next" title="GLSL ES着色器语言-内置变量"><span class="post-nav-text">GLSL ES着色器语言-内置变量</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备xxxxxxxx号</a></div><div class="copyright"><span>&copy; 2019 – 2023 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Lanlan</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.0.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.7.0</span></div><div class="live_time"><span>本博客已萌萌哒地运行</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2019-02-14T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = " " + passDay + " 天 " + passHour + " 小时 " + passMinute + " 分 " + passSecond + " 秒";
+}
+blog_live_time();
+</script></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#6200ee" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4","5-12"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>
